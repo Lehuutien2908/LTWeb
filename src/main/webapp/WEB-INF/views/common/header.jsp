@@ -35,11 +35,7 @@
         <div class="container">
             <ul class="navbar-nav w-100">
                 <li class="nav-item"><a class="nav-link active" href="#">Trang chủ</a></li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#">Sản phẩm</a>
-                </li>
-
+                <li class="nav-item"><a class="nav-link active" href="#">Tất Cả Sản phẩm</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
             </ul>
         </div>

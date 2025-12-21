@@ -64,4 +64,11 @@ public class ProductDAO {
         // Lấy tối đa 5 sản phẩm từ danh sách Hot để làm hàng giảm giá
         return hot.subList(0, Math.min(hot.size(), 5));
     }
+//chi tiét san pham
+public Product getProductById(int id) {
+    return getAllProducts().stream()
+            .filter(p -> p.getId() == id)
+            .findFirst()
+            .orElse(null);
+}
 }

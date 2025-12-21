@@ -273,3 +273,10 @@ footer p {
     .slider-wrapper { grid-auto-columns: 100%; } /* 1 sản phẩm/hàng trên Mobile */
     .product-img { height: 150px; }
 }
+
+/* Hiệu ứng khi hover vào ảnh */
+.product-card a img:hover {
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
