@@ -76,7 +76,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 }
 
 /* =========================================
-   3. BANNER & SLIDER (OPTIMIZED)
+   3. BANNER & SLIDER CHÍNH (HERO)
    ========================================= */
 .banner-main {
     height: 400px;
@@ -94,11 +94,20 @@ ul { list-style: none; padding: 0; margin: 0; }
 }
 
 .col-md-4.d-flex.flex-column {
-    height: 400px; /* Khớp với chiều cao banner chính */
+    height: 400px; /* Khớp chiều cao banner chính */
 }
 
 .overflow-hidden:hover .banner-sub {
     transform: scale(1.05);
+}
+
+.carousel-caption h5 {
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.carousel-caption p {
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
 /* =========================================
@@ -129,13 +138,41 @@ ul { list-style: none; padding: 0; margin: 0; }
 }
 
 .support-item:last-child { border-bottom: none; }
-
 .support-item:hover { background: #fff9f9; }
-
 .support-item i { color: var(--main-red); font-size: 24px; }
 
 /* =========================================
-   5. PRODUCT CARD & SECTION
+   5. CẤU TRÚC SLIDER 2 HÀNG & DRAG-TO-SCROLL
+   ========================================= */
+.slider-viewport {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    cursor: grab;        /* Hiển thị bàn tay để kéo */
+    user-select: none;   /* Ngăn bôi đen chữ khi đang kéo */
+    padding: 10px 0;
+}
+
+.slider-viewport:active {
+    cursor: grabbing;
+}
+
+.slider-wrapper {
+    display: grid;
+    grid-template-rows: repeat(2, auto); /* Chia làm 2 hàng sản phẩm */
+    grid-auto-flow: column;              /* Xếp theo cột để cuộn ngang */
+    grid-auto-columns: 25%;              /* 4 sản phẩm hiển thị trên PC */
+    gap: 15px 0;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.slider-item {
+    padding: 0 8px;
+}
+
+/* =========================================
+   6. PRODUCT CARD & SECTION
    ========================================= */
 .section-title {
     border-bottom: 2px solid var(--main-red);
@@ -157,7 +194,7 @@ ul { list-style: none; padding: 0; margin: 0; }
     border: 1px solid var(--border-color);
     background: white;
     padding: 15px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s ease;
     height: 100%;
     position: relative;
 }
@@ -205,7 +242,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 }
 
 /* =========================================
-   6. FOOTER
+   7. FOOTER
    ========================================= */
 footer {
     border-top: 4px solid var(--main-red);
@@ -219,12 +256,20 @@ footer p {
 }
 
 /* =========================================
-   7. RESPONSIVE (TỐI ƯU DI ĐỘNG)
+   8. RESPONSIVE (TỐI ƯU DI ĐỘNG)
    ========================================= */
+@media (max-width: 992px) {
+    .slider-wrapper { grid-auto-columns: 50%; } /* 2 sản phẩm/hàng trên Tablet */
+}
+
 @media (max-width: 768px) {
     .banner-main { height: 250px; }
     .col-md-4.d-flex.flex-column { height: auto; }
     .banner-sub { height: 150px; margin-top: 10px; }
-    .product-img { height: 150px; }
     .navbar-custom .nav-link { padding: 10px !important; }
+}
+
+@media (max-width: 576px) {
+    .slider-wrapper { grid-auto-columns: 100%; } /* 1 sản phẩm/hàng trên Mobile */
+    .product-img { height: 150px; }
 }
