@@ -1,7 +1,7 @@
 <%-- File: WEB-INF/views/common/footer.jsp --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<footer class="bg-dark text-white py-4 mt-5">
+<footer id="footer-section" class="bg-dark text-white py-4 mt-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
@@ -17,6 +17,7 @@
             </div>
             <div class="col-md-4 text-center text-md-end small">
                 <div class="mb-1"><i class="bi bi-telephone-fill me-2"></i>Hotline: 1900 1234</div>
+                <div class="mb-2"><i class="bi bi-envelope-fill me-2"></i>support@projectltw.vn</div>
                 <div class="opacity-75"><i class="bi bi-geo-alt-fill me-2"></i>TP. Hồ Chí Minh</div>
             </div>
         </div>

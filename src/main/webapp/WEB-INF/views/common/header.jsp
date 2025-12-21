@@ -35,7 +35,9 @@
                             <li class="nav-item">
                                 <a class="nav-link p-0 text-dark" href="${pageContext.request.contextPath}/products">Tất Cả Sản phẩm</a>
                             </li>
-                            <li class="nav-item"><a class="nav-link p-0 text-muted" href="#">Liên hệ</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-dark" href="#footer-section">Liên hệ</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
