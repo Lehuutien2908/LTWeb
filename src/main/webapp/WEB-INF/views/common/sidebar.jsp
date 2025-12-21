@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     <div class="small text-muted">Email liên hệ</div>
-                    <div class="fw-bold" style="font-size: 13px;">support@projectltw.vn</div>
+                    <div class="fw-bold" style="font-size: 13px;">22130290@st.hcmuaf.edu.vn</div>
                 </div>
             </div>
         </div>
