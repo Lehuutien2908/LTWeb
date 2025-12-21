@@ -8,7 +8,7 @@ Project LT Web
 │       │       │   // Chứa các file Servlet (VD: HomeServlet.java)
 │       │       ├── model/                  <-- MODEL (JavaBeans - Đối tượng dữ liệu)
 │       │       │   // Chứa các lớp Entity/Bean (VD: User.java, Product.java)
-│       │       ├── dao/                    <-- MODEL (Data Access Object)
+│       │       ├── vn.edu.hcmuaf.fit.projectltw.dao/                    <-- MODEL (Data Access Object)
 │       │       │   // Chứa các lớp tương tác trực tiếp với Database/JDBC (VD: UserDAO.java)
 │       │       └── service/                <-- MODEL (Logic nghiệp vụ)
 │       │           // Chứa các lớp xử lý nghiệp vụ phức tạp, gọi DAO (VD: UserService.java)

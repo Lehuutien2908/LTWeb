@@ -1,0 +1,230 @@
+/* =========================================
+   1. BIẾN VÀ CẤU HÌNH CHUNG
+   ========================================= */
+:root {
+    --main-red: #e31e24;       /* Màu đỏ chủ đạo Accent */
+    --dark-bg: #1a1a1a;        /* Màu nền tối */
+    --nav-bg: #252525;         /* Màu thanh menu */
+    --text-gray: #666666;
+    --border-color: #eeeeee;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; padding: 0; margin: 0; }
+
+/* =========================================
+   2. HEADER & NAVIGATION
+   ========================================= */
+.top-bar {
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid #333;
+}
+
+.header-main {
+    background: #000;
+    padding: 20px 0;
+}
+
+.search-btn {
+    background: var(--main-red);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 0 25px;
+}
+
+.search-btn:hover { background: #c1171c; color: white; }
+
+.cart-box {
+    background: var(--main-red);
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    min-width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navbar-custom {
+    background: var(--nav-bg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-custom .nav-link {
+    color: white !important;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 12px 20px !important;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-item.active .nav-link {
+    background: var(--main-red);
+}
+
+/* =========================================
+   3. BANNER & SLIDER (OPTIMIZED)
+   ========================================= */
+.banner-main {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+}
+
+.banner-sub {
+    height: 195px;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.col-md-4.d-flex.flex-column {
+    height: 400px; /* Khớp với chiều cao banner chính */
+}
+
+.overflow-hidden:hover .banner-sub {
+    transform: scale(1.05);
+}
+
+/* =========================================
+   4. SIDEBAR CHUYÊN NGHIỆP
+   ========================================= */
+.sidebar-title {
+    background: var(--main-red);
+    color: white;
+    padding: 12px 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 4px 4px 0 0;
+}
+
+.sidebar-box {
+    border: 1px solid var(--border-color);
+    background: white;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.support-item {
+    padding: 15px;
+    border-bottom: 1px dashed #eee;
+    transition: 0.3s;
+}
+
+.support-item:last-child { border-bottom: none; }
+
+.support-item:hover { background: #fff9f9; }
+
+.support-item i { color: var(--main-red); font-size: 24px; }
+
+/* =========================================
+   5. PRODUCT CARD & SECTION
+   ========================================= */
+.section-title {
+    border-bottom: 2px solid var(--main-red);
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.section-title h2 {
+    background: var(--main-red);
+    color: white;
+    display: inline-block;
+    padding: 6px 20px;
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.product-card {
+    border: 1px solid var(--border-color);
+    background: white;
+    padding: 15px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    height: 100%;
+    position: relative;
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--main-red);
+    transform: translateY(-5px);
+}
+
+.product-img {
+    height: 180px;
+    object-fit: contain;
+    padding: 10px;
+    width: 100%;
+    transition: 0.5s;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-price {
+    color: var(--main-red);
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.btn-buy {
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+    padding: 8px 0;
+    margin-top: auto;
+}
+
+.btn-buy:hover {
+    background: var(--main-red);
+    color: white;
+    border-color: var(--main-red);
+}
+
+/* =========================================
+   6. FOOTER
+   ========================================= */
+footer {
+    border-top: 4px solid var(--main-red);
+    background-color: #1a1a1a;
+    padding: 40px 0 20px;
+}
+
+footer p {
+    color: #999;
+    font-size: 13px;
+}
+
+/* =========================================
+   7. RESPONSIVE (TỐI ƯU DI ĐỘNG)
+   ========================================= */
+@media (max-width: 768px) {
+    .banner-main { height: 250px; }
+    .col-md-4.d-flex.flex-column { height: auto; }
+    .banner-sub { height: 150px; margin-top: 10px; }
+    .product-img { height: 150px; }
+    .navbar-custom .nav-link { padding: 10px !important; }
+}
