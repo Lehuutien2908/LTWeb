@@ -92,13 +92,13 @@
                     <input type="hidden" name="productId" value="${product.id}">
 
                     <div class="mb-4 d-flex align-items-center">
-                        <label class="me-3 fw-bold small text-uppercase">Số lượng:</label>
-                        <div class="input-group" style="width: 120px;">
-                            <button class="btn btn-sm btn-outline-secondary px-3" type="button" onclick="changeQty(-1)">-</button>
-                            <input type="text" name="quantity" id="quantity" class="form-control form-control-sm text-center quantity-input" value="1" readonly>
-                            <button class="btn btn-sm btn-outline-secondary px-3" type="button" onclick="changeQty(1)">+</button>
-                        </div>
-                    </div>
+                                            <label class="me-3 fw-bold">Số lượng:</label>
+                                            <div class="input-group" style="width: 130px;">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="changeQty(-1)">-</button>
+                                                <input type="number" name="quantity" id="quantity" class="form-control text-center" value="1" min="1">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="changeQty(1)">+</button>
+                                            </div>
+                                        </div>
 
                     <div class="bg-light p-3 rounded mb-4 border">
                         <div class="small text-dark mb-2"><i class="bi bi-truck text-danger me-2"></i> Miễn phí vận chuyển cho đơn hàng từ 500k</div>
@@ -144,7 +144,6 @@
         <section class="mt-5 mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold m-0 border-start border-danger border-4 ps-3 text-uppercase" style="font-size: 1.1rem;">Sản phẩm tương tự</h4>
-                <a href="products" class="text-decoration-none small text-danger fw-bold">Xem tất cả <i class="bi bi-arrow-right"></i></a>
             </div>
             <div class="row row-cols-2 row-cols-md-4 g-3">
                 <c:forEach var="rp" items="${relatedProducts}">
