@@ -1,11 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header>
-    <div class="top-bar">
-        <div class="container d-flex justify-content-between">
-            <span>Chào mừng bạn !</span>
-            <span><i class="bi bi-cart"></i> Thanh toán</span>
-        </div>
-    </div>
+
     <div class="header-main">
         <div class="container">
             <div class="row align-items-center">
@@ -19,25 +14,29 @@
                     </div>
                 </div>
                 <div class="col-md-3 d-flex justify-content-end align-items-center">
-                    <div class="text-white me-3">
-                        <a href="#" class="text-white text-decoration-none">Đăng nhập</a> /
-                        <a href="#" class="text-white text-decoration-none">Đăng ký</a>
+                    <div class="text-white me-3 auth-wrapper">
+                        <a href="login" class="text-white text-decoration-none auth-link">Đăng nhập</a>
+                        <span class="mx-1 text-white-50">/</span>
+                        <a href="register" class="text-white text-decoration-none auth-link">Đăng ký</a>
                     </div>
                     <div class="cart-box">
-                        <div class="fw-bold">0</div>
-                        <div style="font-size: 10px">sản phẩm</div>
+
+                        <span><i class="bi bi-cart"></i> Thanh toán</span>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-custom p-0">
-        <div class="container">
-            <ul class="navbar-nav w-100">
-                <li class="nav-item"><a class="nav-link active" href="#">Trang chủ</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">Tất Cả Sản phẩm</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-            </ul>
-        </div>
-    </nav>
+
+    <div class="sub-nav-bar bg-white border-bottom mb-4 py-2">
+                <div class="bg-white border-bottom mb-0">
+                    <div class="container d-flex align-items-center py-2"> <ul class="navbar-nav flex-row gap-4 w-100 small fw-bold text-uppercase mb-0"> <li class="nav-item"><a class="nav-link p-0 text-dark active" href="home">Trang chủ</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-dark" href="${pageContext.request.contextPath}/products">Tất Cả Sản phẩm</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link p-0 text-muted" href="#">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                </div>
 </header>

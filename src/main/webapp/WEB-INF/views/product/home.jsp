@@ -11,14 +11,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 
     <style>
+        /* CSS nội bộ cho Slider và Card */
         .product-img { height: 180px; object-fit: contain; padding: 10px; transition: transform 0.3s ease; }
         .product-card { transition: 0.3s; height: 100%; border-radius: 8px; overflow: hidden; }
-        .product-card:hover { border-color: #dc3545 !important; }
-
-        /* Hiệu ứng hover cho ảnh */
+        .product-card:hover { border-color: #dc3545 !important; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         .product-card a:hover img { transform: scale(1.05); }
 
-        /* Định dạng giá tiền và nút */
         .product-price { color: #dc3545; font-weight: bold; font-size: 1.1rem; }
         .btn-buy {
             background-color: #dc3545;
@@ -29,7 +27,7 @@
         }
         .btn-buy:hover { background-color: #b02a37; color: white; }
 
-        /* Cấu trúc Slider 2 hàng */
+        /* Slider 2 hàng */
         .slider-viewport { overflow: hidden; width: 100%; position: relative; cursor: grab; user-select: none; }
         .slider-wrapper {
             display: grid;
@@ -45,22 +43,27 @@
         @media (max-width: 992px) { .slider-wrapper { grid-auto-columns: 50%; } }
         @media (max-width: 576px) { .slider-wrapper { grid-auto-columns: 100%; } }
 
-        .section-title h2 { font-size: 1.5rem; font-weight: bold; border-left: 4px solid #dc3545; padding-left: 10px; }
+        .section-title h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-left: 4px solid #dc3545;
+            padding-left: 10px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
-<body>
-    <jsp:include page="../common/header.jsp" />
+<body class="bg-light">
+    <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
     <main class="container mt-4">
         <div class="row">
             <div class="col-md-3">
-                <jsp:include page="../common/sidebar.jsp" />
+                <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
             </div>
 
             <div class="col-md-9">
-
                 <div class="section-title d-flex justify-content-between align-items-end mb-3">
-                    <h2 class="m-0 text-uppercase">Sản phẩm mới</h2>
+                    <h2 class="m-0">Sản phẩm mới</h2>
                     <div class="nav-arrows">
                         <button class="btn btn-sm btn-outline-secondary btn-prev" data-target="newWrapper"><i class="bi bi-chevron-left"></i></button>
                         <button class="btn btn-sm btn-outline-secondary btn-next" data-target="newWrapper"><i class="bi bi-chevron-right"></i></button>
@@ -74,14 +77,12 @@
                                     <a href="detail?id=${p.id}">
                                         <img src="${pageContext.request.contextPath}/assets/images/${p.image}" class="product-img w-100" alt="${p.name}">
                                     </a>
-
                                     <div class="flex-grow-1 mt-2">
                                         <h6 class="text-dark text-truncate px-2 fw-bold mb-1">${p.name}</h6>
                                         <div class="product-price mb-2">
                                             <fmt:formatNumber value="${p.price}" pattern="#,###"/>₫
                                         </div>
                                     </div>
-
                                     <a href="detail?id=${p.id}" class="btn btn-buy w-100 py-2 text-decoration-none">MUA HÀNG</a>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@
                 </div>
 
                 <div class="section-title d-flex justify-content-between align-items-end mb-3">
-                    <h2 class="m-0 text-uppercase">Bán chạy</h2>
+                    <h2 class="m-0">Bán chạy</h2>
                     <div class="nav-arrows">
                         <button class="btn btn-sm btn-outline-secondary btn-prev" data-target="hotWrapper"><i class="bi bi-chevron-left"></i></button>
                         <button class="btn btn-sm btn-outline-secondary btn-next" data-target="hotWrapper"><i class="bi bi-chevron-right"></i></button>
@@ -98,24 +99,19 @@
                 </div>
                 <div class="slider-viewport mb-5">
                     <div id="hotWrapper" class="slider-wrapper">
-                        <%-- ĐÃ FIX: Sử dụng đúng danh sách hotProducts --%>
                         <c:forEach var="p" items="${hotProducts}">
                             <div class="slider-item">
                                 <div class="product-card text-center d-flex flex-column p-2 border bg-white shadow-sm">
-
                                     <a href="detail?id=${p.id}">
                                         <img src="${pageContext.request.contextPath}/assets/images/${p.image}" class="product-img w-100" alt="${p.name}">
                                     </a>
-
                                     <div class="flex-grow-1 mt-2">
                                         <h6 class="text-dark text-truncate px-2 fw-bold mb-1">${p.name}</h6>
                                         <div class="product-price mb-2">
                                             <fmt:formatNumber value="${p.price}" pattern="#,###"/>₫
                                         </div>
                                     </div>
-
                                     <a href="detail?id=${p.id}" class="btn btn-buy w-100 py-2 text-decoration-none">MUA HÀNG</a>
-
                                 </div>
                             </div>
                         </c:forEach>
@@ -125,7 +121,7 @@
         </div>
     </main>
 
-    <jsp:include page="../common/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -139,25 +135,25 @@
 
             let currentPos = 0;
             const columnsVisible = 4;
-            const totalItems = wrapper.children.length;
-            const totalCols = Math.ceil(totalItems / 2);
-            const maxPos = totalCols - columnsVisible;
+            function getTotalCols() { return Math.ceil(wrapper.children.length / 2); }
 
             function update() {
                 wrapper.style.transform = `translateX(-${currentPos * 25}%)`;
             }
 
             nextBtns.forEach(btn => btn.onclick = () => {
+                const maxPos = getTotalCols() - columnsVisible;
                 currentPos = (currentPos < maxPos) ? currentPos + 1 : 0;
                 update();
             });
 
             prevBtns.forEach(btn => btn.onclick = () => {
+                const maxPos = getTotalCols() - columnsVisible;
                 currentPos = (currentPos > 0) ? currentPos - 1 : maxPos;
                 update();
             });
 
-            // Hỗ trợ kéo chuột
+            // Hỗ trợ kéo chuột (Drag to scroll)
             let isDown = false, startX, scrollPos;
             viewport.onmousedown = (e) => {
                 isDown = true;
@@ -174,6 +170,7 @@
             viewport.onmousemove = (e) => {
                 if (!isDown) return;
                 const walk = (e.pageX - startX) * 0.05;
+                const maxPos = getTotalCols() - columnsVisible;
                 let temp = scrollPos - walk;
                 currentPos = Math.max(0, Math.min(maxPos, Math.round(temp)));
                 wrapper.style.transform = `translateX(-${temp * 25}%)`;
