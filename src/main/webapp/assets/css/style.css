@@ -253,3 +253,7 @@ header { background: #000; }
 .auth-link:active {
     transform: translateY(1px);
 }
+/* Áp dụng cho toàn bộ trang web */
+html {
+    scroll-behavior: smooth;
+}

@@ -17,7 +17,8 @@
             </div>
             <div class="col-md-4 text-center text-md-end small">
                 <div class="mb-1"><i class="bi bi-telephone-fill me-2"></i>Hotline: 1900 1234</div>
-                <div class="mb-2"><i class="bi bi-envelope-fill me-2"></i>support@projectltw.vn</div>
+                 <div class="mb-1"><i class="bi bi-telephone-fill me-2"></i>Tư vấn bán hàng: 1900 6750</div>
+                <div class="mb-2"><i class="bi bi-envelope-fill me-2"></i>22130290@st.hcmuaf.edu.vn</div>
                 <div class="opacity-75"><i class="bi bi-geo-alt-fill me-2"></i>TP. Hồ Chí Minh</div>
             </div>
         </div>

@@ -33,7 +33,7 @@
                 <div class="bg-white border-bottom mb-0">
                     <div class="container d-flex align-items-center py-2"> <ul class="navbar-nav flex-row gap-4 w-100 small fw-bold text-uppercase mb-0"> <li class="nav-item"><a class="nav-link p-0 text-dark active" href="home">Trang chủ</a></li>
                             <li class="nav-item">
-                                <a class="nav-link p-0 text-dark" href="${pageContext.request.contextPath}/products">Tất Cả Sản phẩm</a>
+                                <a class="nav-link p-0 text-dark" href="${pageContext.request.contextPath}/products">Danh Mục Sản phẩm</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link p-0 text-dark" href="#footer-section">Liên hệ</a>
