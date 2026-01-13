@@ -46,7 +46,7 @@
                         </c:choose>
                     </div>
 
-                    <a href="${pageContext.request.contextPath}/checkout" class="text-decoration-none">
+                    <a href="${pageContext.request.contextPath}/cart" class="text-decoration-none">
                         <div class="cart-box d-flex align-items-center justify-content-center">
                             <i class="bi bi-cart3 me-2 fs-5"></i>
                             <span class="fw-bold">THANH TOÁN</span>
