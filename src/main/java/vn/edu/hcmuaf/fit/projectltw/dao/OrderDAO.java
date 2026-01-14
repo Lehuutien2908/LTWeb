@@ -11,10 +11,12 @@ public class OrderDAO {
         String sqlOrder = "INSERT INTO orders (order_id, fullname, phone, address, note, total_money) VALUES (?, ?, ?, ?, ?, ?)";
         String sqlDetail = "INSERT INTO order_details (order_id, product_id, price, quantity) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DBContext.getConnection()) {
-            conn.setAutoCommit(false); // Bắt đầu transaction để đảm bảo lưu cả 2 bảng hoặc không lưu gì
+        Connection conn = null;
+        try {
+            conn = DBContext.getConnection();
+            conn.setAutoCommit(false); // Bắt đầu giao dịch (Transaction)
 
-            // 1. Lưu vào bảng orders
+            // 1. Lưu thông tin chung của đơn hàng vào bảng 'orders'
             try (PreparedStatement psOrder = conn.prepareStatement(sqlOrder)) {
                 psOrder.setString(1, order.getId());
                 psOrder.setString(2, order.getFullName());
@@ -25,21 +27,39 @@ public class OrderDAO {
                 psOrder.executeUpdate();
             }
 
-            // 2. Lưu vào bảng order_details (Duyệt qua danh sách CartItem trong Order)
+            // 2. Lưu chi tiết từng sản phẩm vào bảng 'order_details' dùng Batch
             try (PreparedStatement psDetail = conn.prepareStatement(sqlDetail)) {
                 for (CartItem item : order.getItems()) {
                     psDetail.setString(1, order.getId());
                     psDetail.setInt(2, item.getProduct().getId());
                     psDetail.setDouble(3, item.getProduct().getPrice());
                     psDetail.setInt(4, item.getQuantity());
-                    psDetail.addBatch();
+                    psDetail.addBatch(); // Gom nhóm các câu lệnh
                 }
-                psDetail.executeBatch();
+                psDetail.executeBatch(); // Thực thi một lần duy nhất
             }
 
-            conn.commit(); // Hoàn tất lưu dữ liệu
+            conn.commit(); // Xác nhận lưu mọi thứ vào database
+            System.out.println("Lưu đơn hàng " + order.getId() + " thành công!");
+
         } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // Hủy bỏ nếu có bất kỳ lỗi nào xảy ra
+                    System.out.println("Lỗi! Đã Rollback dữ liệu đơn hàng.");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close(); // Đảm bảo đóng kết nối để giải phóng tài nguyên
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

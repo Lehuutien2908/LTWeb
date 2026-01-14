@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductDAO {
 
-    // Hàm bổ trợ để đọc dữ liệu từ ResultSet
+    // Hàm bổ trợ để chuyển đổi dữ liệu từ database sang đối tượng Product
     private Product mapProduct(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("id"),
@@ -19,6 +19,31 @@ public class ProductDAO {
                 rs.getBoolean("is_new"),
                 rs.getBoolean("is_hot")
         );
+    }
+
+    // Lấy toàn bộ sản phẩm trong Database
+    public List<Product> getAllProducts() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapProduct(rs));
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+
+    // Tìm kiếm sản phẩm theo tên (Dùng cho thanh Search ở Header)
+    public List<Product> searchProducts(String query) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE name LIKE ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + query + "%"); // Tìm kiếm gần đúng
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapProduct(rs));
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
     }
 
     public List<Product> getNewProducts() {
