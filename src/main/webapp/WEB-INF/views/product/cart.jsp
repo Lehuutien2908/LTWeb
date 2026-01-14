@@ -95,7 +95,7 @@
                             <fmt:formatNumber value="${sessionScope.cart.totalMoney}" type="currency" currencySymbol="₫"/>
                         </span>
                     </div>
-                    <a href="#" class="btn btn-accent w-100 py-2 text-uppercase">Tiến hành thanh toán</a>
+                    <a href="${pageContext.request.contextPath}/checkout" class="btn btn-success">TIẾN HÀNH THANH TOÁN</a>
                 </div>
             </div>
         </div>
