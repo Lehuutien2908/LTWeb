@@ -97,7 +97,7 @@
                     <a class="nav-link p-0 text-dark active" href="${pageContext.request.contextPath}/home">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-0 text-dark" href="${pageContext.request.contextPath}/products">Danh Mục Sản phẩm</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/products">Danh Mục Sản phẩm</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link p-0 text-dark" href="#footer-section">Liên hệ</a>
