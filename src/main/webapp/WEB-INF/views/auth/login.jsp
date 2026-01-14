@@ -72,15 +72,7 @@
                             <button type="submit" class="btn btn-danger w-100 fw-bold py-3 text-uppercase shadow-sm mb-3"
                                     style="border-radius: 10px;">Đăng nhập ngay</button>
 
-                            <div class="divider d-flex align-items-center my-4">
-                                <p class="text-center small fw-bold mx-3 mb-0 text-muted">HOẶC TIẾP TỤC VỚI</p>
-                            </div>
 
-                            <div class="d-flex justify-content-center gap-4">
-                                <a href="#" class="btn-social btn-google text-decoration-none" title="Google"><i class="bi bi-google"></i></a>
-                                <a href="#" class="btn-social btn-facebook text-decoration-none" title="Facebook"><i class="bi bi-facebook"></i></a>
-                                <a href="#" class="btn-social btn-apple text-decoration-none" title="Apple ID"><i class="bi bi-apple"></i></a>
-                            </div>
                         </form>
 
                         <div class="text-center mt-4 pt-2">
