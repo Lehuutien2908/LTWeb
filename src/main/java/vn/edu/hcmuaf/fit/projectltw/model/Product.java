@@ -45,6 +45,8 @@ public class Product implements Serializable {
 
     public boolean isNew() { return isNew; }
     public void setNew(boolean isNew) { this.isNew = isNew; }
+    public boolean getIsNewMap() {return isNew;
+    }
 
     public boolean isHot() { return isHot; }
     public void setHot(boolean isHot) { this.isHot = isHot; }
