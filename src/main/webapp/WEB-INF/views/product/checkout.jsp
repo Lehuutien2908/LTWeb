@@ -78,8 +78,8 @@
             </h4>
 
             <div class="mb-3">
-              <label for="name" class="form-label fw-bold">Họ và tên người nhận</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Ví dụ: Nguyễn Văn A" required>
+              <label for="fullname" class="form-label fw-bold">Họ và tên người nhận</label>
+              <input type="text" class="form-control" id="name" name="fullname" placeholder="Ví dụ: Nguyễn Văn A" required>
             </div>
 
             <div class="mb-3">

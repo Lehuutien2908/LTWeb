@@ -26,11 +26,67 @@ public class Order {
         this.date = new Date();
     }
 
-    public String getId() { return id; }
-    public String getFullName() { return fullName; }
-    public String getPhone() { return phone; }
-    public String getAddress() { return address; }
-    public double getTotalMoney() { return totalMoney; }
-    public Date getDate() { return date; }
-    public List<CartItem> getDetails() { return details; }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public double getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(double totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public List<CartItem> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<CartItem> details) {
+        this.details = details;
+    }
 }

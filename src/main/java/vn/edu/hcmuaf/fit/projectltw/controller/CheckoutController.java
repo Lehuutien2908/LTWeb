@@ -34,7 +34,7 @@ public class CheckoutController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. Lấy thông tin form
         req.setCharacterEncoding("UTF-8"); // Để không lỗi font tiếng Việt
-        String name = req.getParameter("fullName");
+        String name = req.getParameter("fullname");
         String phone = req.getParameter("phone");
         String address = req.getParameter("address");
         String note = req.getParameter("note");
@@ -51,12 +51,16 @@ public class CheckoutController extends HttpServlet {
             List<CartItem> orderDetails = new ArrayList<>(cart.getItems().values());
 
             Order newOrder = new Order(orderId, name, phone, address, note, cart.getTotalMoney(), orderDetails);
+            // 4. Chuyển sản phẩm đã thanh toán về trang đơn hàng
+            req.setAttribute("order", newOrder);
+            session.removeAttribute("cart");
+            req.getRequestDispatcher("/WEB-INF/views/product/order-success.jsp").forward(req, resp);
 
-            // 4. LƯU VÀO DAO
+            // 5. Lưu vào Database
             OrderDAO dao = new OrderDAO();
             dao.saveOrder(newOrder);
 
-            // 5. IN RA CONSOLE ĐỂ KIỂM TRA
+            // 6. Check đơn hàng tại console
             System.out.println("=== ĐƠN HÀNG MỚI ===");
             System.out.println("Mã đơn: " + newOrder.getId());
             System.out.println("Khách: " + newOrder.getFullName());
@@ -64,11 +68,9 @@ public class CheckoutController extends HttpServlet {
             System.out.println("Số lượng đơn trong hệ thống: " + dao.getAllOrders().size());
             System.out.println("====================");
 
-            // 6. Xóa giỏ hàng và thông báo
+            // 7. Xóa giỏ hàng và thông báo
             session.removeAttribute("cart");
             session.setAttribute("message", "Đặt hàng thành công! Mã đơn: " + orderId);
-
-            resp.sendRedirect(req.getContextPath() + "/home");
         } else {
             resp.sendRedirect("cart");
         }
