@@ -6,14 +6,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.projectltw.dao.UserDAO;
+import vn.edu.hcmuaf.fit.projectltw.service.EmailService; // Đảm bảo đã import đúng
+
 import java.io.IOException;
+import java.util.Random;
 
 @WebServlet(name = "ForgotPasswordServlet", value = "/forgot-password")
 public class ForgotPasswordServlet extends HttpServlet {
-    private final UserDAO userDAO = new UserDAO(); // Sử dụng UserDAO để xử lý dữ liệu
+    private final UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Chuyển hướng người dùng đến trang nhập email
         request.getRequestDispatcher("/WEB-INF/views/auth/forgot-password.jsp").forward(request, response);
     }
 
@@ -24,16 +28,41 @@ public class ForgotPasswordServlet extends HttpServlet {
 
         String email = request.getParameter("email");
 
-        // Sử dụng UserDAO để kiểm tra email thay vì viết SQL trực tiếp ở đây
+        // 1. Kiểm tra email có tồn tại trong database project_ltw không
         if (userDAO.isEmailExists(email)) {
-            // Nếu email tồn tại, gửi thông báo thành công (Giả lập gửi mail)
-            request.setAttribute("message", "Hướng dẫn đặt lại mật khẩu đã được gửi vào email: " + email);
+
+            // 2. Tạo mật khẩu mới ngẫu nhiên (6 ký tự chữ và số)
+            String newPassword = generateRandomPassword(6);
+
+            // 3. Cập nhật mật khẩu mới này vào TiDB Cloud
+            boolean isUpdated = userDAO.updatePassword(email, newPassword);
+
+            if (isUpdated) {
+                // 4. Gửi mật khẩu mới qua Email
+                // Đảm bảo hàm trong EmailService của bạn đặt tên là sendPasswordEmail
+                EmailService.sendPasswordEmail(email, "Khách hàng", newPassword);
+
+                request.setAttribute("message", "Mật khẩu mới đã được gửi thành công vào email: " + email);
+            } else {
+                request.setAttribute("error", "Lỗi hệ thống: Không thể cập nhật mật khẩu lúc này!");
+            }
         } else {
-            // Nếu không tìm thấy email trong hệ thống
+            // Trường hợp không tìm thấy email
             request.setAttribute("error", "Email này không tồn tại trên hệ thống!");
             request.setAttribute("oldEmail", email);
         }
 
         request.getRequestDispatcher("/WEB-INF/views/auth/forgot-password.jsp").forward(request, response);
+    }
+
+    // Hàm phụ trợ tạo mật khẩu ngẫu nhiên
+    private String generateRandomPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return sb.toString();
     }
 }

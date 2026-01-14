@@ -56,6 +56,16 @@ public class ProductDAO {
         } catch (Exception e) { e.printStackTrace(); }
         return list;
     }
+    public List<Product> getSaleProducts() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products ORDER BY price ASC LIMIT 5";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapProduct(rs));
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
 
     public List<Product> getHotProducts() {
         List<Product> list = new ArrayList<>();

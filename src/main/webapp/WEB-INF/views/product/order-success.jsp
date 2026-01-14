@@ -54,7 +54,7 @@
           </tr>
           </thead>
           <tbody>
-          <c:forEach items="${order.details}" var="item">
+          <c:forEach items="${order.items}" var="item">
             <tr class="border-bottom">
               <td>
                 <div class="d-flex align-items-center">

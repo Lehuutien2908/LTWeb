@@ -17,17 +17,17 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8"); // Đảm bảo không lỗi font tiếng Việt
+        request.setCharacterEncoding("UTF-8");
 
         String email = request.getParameter("email");
         String pass = request.getParameter("password");
 
-        // Sử dụng DAO để kiểm tra thay vì viết SQL trực tiếp ở đây
+        // Sử dụng DAO để kiểm tra
         String fullName = userDAO.checkLogin(email, pass);
 
         if (fullName != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", fullName); // Lưu tên vào Session cho Header hiển thị
+            session.setAttribute("user", fullName);
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
             request.setAttribute("oldEmail", email);

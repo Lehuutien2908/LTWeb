@@ -38,8 +38,8 @@ public class ProductServlet extends HttpServlet {
 
                 // Lấy danh sách liên quan: Lọc bỏ sản phẩm hiện tại để không bị trùng
                 List<Product> related = productDAO.getHotProducts().stream()
-                        .filter(p -> p.getId() != id) // Không hiện lại máy đang xem
-                        .limit(4)                     // Chỉ lấy đúng 4 máy
+                        .filter(p -> p.getId() != id)
+                        .limit(4)
                         .collect(Collectors.toList());
 
                 request.setAttribute("relatedProducts", related);

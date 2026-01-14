@@ -46,12 +46,21 @@ public class UserDAO {
         return false;
     }
 
-    // 3. Hàm cập nhật mật khẩu mới (Dùng cho Quên mật khẩu)
-    public boolean updatePassword(String email, String newPass) {
+    public String generateRandomPassword() {
+        String digits = "0123456789";
+        StringBuilder sb = new StringBuilder();
+        java.util.Random rd = new java.util.Random();
+        for (int i = 0; i < 8; i++) {
+            sb.append(digits.charAt(rd.nextInt(digits.length())));
+        }
+        return sb.toString();
+    }
+
+    public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE users SET password = ? WHERE email = ?";
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, newPass);
+            ps.setString(1, newPassword);
             ps.setString(2, email);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
