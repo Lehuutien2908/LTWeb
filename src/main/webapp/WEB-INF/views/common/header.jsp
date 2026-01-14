@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <%
+    // Để lấy thông báo thành công từ Session (nếu có)
     String msg = (String) session.getAttribute("message");
     if (msg != null) {
 %>
@@ -15,6 +16,7 @@
 </div>
 
 <script>
+    // Để tự động đóng thông báo sau 3 giây
     setTimeout(function() {
         var alertElement = document.getElementById('success-alert');
         if (alertElement) {
@@ -29,7 +31,7 @@
 </script>
 
 <%
-        // Xóa session để không hiện lại khi F5
+        // Để xóa thông báo sau khi đã hiển thị, tránh lặp lại khi F5
         session.removeAttribute("message");
     }
 %>
@@ -66,6 +68,7 @@
                 <div class="col-md-4 d-flex justify-content-end align-items-center">
                     <div class="text-white me-4 auth-wrapper">
                         <c:choose>
+                            <%-- Để kiểm tra xem người dùng đã đăng nhập hay chưa --%>
                             <c:when test="${empty sessionScope.user}">
                                 <a href="${pageContext.request.contextPath}/login" class="text-white text-decoration-none auth-link">Đăng nhập</a>
                                 <span class="mx-1 text-white-50">/</span>
@@ -73,7 +76,8 @@
                             </c:when>
                             <c:otherwise>
                                 <span class="small text-white-50">Xin chào,</span>
-                                <a href="${pageContext.request.contextPath}/profile" class="text-white text-decoration-none fw-bold ms-1 hover-red">${sessionScope.user.fullname}</a>
+                                <%-- ĐÃ SỬA: Chỉ gọi ${sessionScope.user} vì LoginServlet lưu String họ tên --%>
+                                <a href="${pageContext.request.contextPath}/profile" class="text-white text-decoration-none fw-bold ms-1 hover-red">${sessionScope.user}</a>
                                 <a href="${pageContext.request.contextPath}/logout" class="ms-2 text-white-50 small text-decoration-none border-start ps-2">Thoát</a>
                             </c:otherwise>
                         </c:choose>

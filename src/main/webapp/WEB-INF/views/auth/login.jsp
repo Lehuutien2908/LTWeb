@@ -15,16 +15,8 @@
 
         /* CSS các nút mạng xã hội bo tròn 10px */
         .btn-social {
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            background: #fff;
-            transition: 0.3s;
-            font-size: 22px;
+            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; border: 1px solid #ddd; background: #fff; transition: 0.3s; font-size: 22px;
         }
         .btn-social:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .btn-google:hover { color: #DB4437; border-color: #DB4437; }
@@ -45,30 +37,37 @@
                             <p class="text-muted small">Chào mừng bạn quay trở lại với Flagship Global</p>
                         </div>
 
+                        <%-- Để hiển thị thông báo lỗi khi đăng nhập sai --%>
                         <c:if test="${not empty error}">
                             <div class="alert alert-danger small py-2 text-center" style="border-radius: 10px;">
                                 <i class="bi bi-exclamation-circle me-1"></i> ${error}
                             </div>
                         </c:if>
 
+                        <%-- Để hiển thị thông báo thành công sau khi đăng ký thành công --%>
+                        <c:if test="${param.success eq 'true'}">
+                            <div class="alert alert-success small py-2 text-center" style="border-radius: 10px;">
+                                <i class="bi bi-check-circle me-1"></i> Đăng ký thành công! Mời bạn đăng nhập.
+                            </div>
+                        </c:if>
+
                         <form action="${pageContext.request.contextPath}/login" method="POST">
                             <div class="mb-3">
-                                <label class="form-label small fw-bold text-uppercase">Tên đăng nhập / Email</label>
-                                <input type="text" name="username" class="form-control form-control-lg border-2 shadow-sm"
-                                       style="border-radius: 10px; font-size: 15px;" placeholder="Username" required>
+                                <label class="form-label small fw-bold text-uppercase">Địa chỉ Email</label>
+                                <%-- SỬA: name="username" thành name="email" để Servlet nhận được dữ liệu --%>
+                                <input type="email" name="email" class="form-control form-control-lg border-2 shadow-sm"
+                                       style="border-radius: 10px; font-size: 15px;"
+                                       placeholder="email@example.com" value="${oldEmail}" required>
                             </div>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label small fw-bold text-uppercase">Mật khẩu</label>
-                                    <a href="${pageContext.request.contextPath}/forgot-password" class="small text-danger text-decoration-none fw-bold">Quên?</a>
+                                    <a href="${pageContext.request.contextPath}/forgot-password" class="small text-danger text-decoration-none fw-bold"> Quên Mật Khẩu?</a>
                                 </div>
                                 <input type="password" name="password" class="form-control form-control-lg border-2 shadow-sm"
                                        style="border-radius: 10px; font-size: 15px;" placeholder="••••••••" required>
                             </div>
-                            <div class="mb-4 form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe">
-                                <label class="form-check-label small text-muted" for="rememberMe">Ghi nhớ đăng nhập</label>
-                            </div>
+
 
                             <button type="submit" class="btn btn-danger w-100 fw-bold py-3 text-uppercase shadow-sm mb-3"
                                     style="border-radius: 10px;">Đăng nhập ngay</button>
@@ -78,15 +77,9 @@
                             </div>
 
                             <div class="d-flex justify-content-center gap-4">
-                                <a href="#" class="btn-social btn-google text-decoration-none" title="Google">
-                                    <i class="bi bi-google"></i>
-                                </a>
-                                <a href="#" class="btn-social btn-facebook text-decoration-none" title="Facebook">
-                                    <i class="bi bi-facebook"></i>
-                                </a>
-                                <a href="#" class="btn-social btn-apple text-decoration-none" title="Apple ID">
-                                    <i class="bi bi-apple"></i>
-                                </a>
+                                <a href="#" class="btn-social btn-google text-decoration-none" title="Google"><i class="bi bi-google"></i></a>
+                                <a href="#" class="btn-social btn-facebook text-decoration-none" title="Facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="btn-social btn-apple text-decoration-none" title="Apple ID"><i class="bi bi-apple"></i></a>
                             </div>
                         </form>
 

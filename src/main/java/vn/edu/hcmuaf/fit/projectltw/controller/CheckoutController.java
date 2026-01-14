@@ -14,7 +14,6 @@ import vn.edu.hcmuaf.fit.projectltw.model.Order;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
@@ -22,6 +21,14 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+
+        // KIỂM TRA 1: Chặn xem trang checkout nếu chưa đăng nhập
+        if (session.getAttribute("user") == null) {
+            req.setAttribute("error", "Bạn vui lòng đăng nhập để tiến hành thanh toán!");
+            req.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(req, resp);
+            return;
+        }
+
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null || cart.getTotalMoney() == 0) {
             resp.sendRedirect(req.getContextPath() + "/home");
@@ -32,47 +39,40 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 1. Lấy thông tin form
-        req.setCharacterEncoding("UTF-8"); // Để không lỗi font tiếng Việt
+        HttpSession session = req.getSession();
+
+        // KIỂM TRA 2: Chặn thực thi đơn hàng nếu chưa đăng nhập (Cửa hậu)
+        if (session.getAttribute("user") == null) {
+            req.setAttribute("error", "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
+            req.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(req, resp);
+            return;
+        }
+
+        req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("fullname");
         String phone = req.getParameter("phone");
         String address = req.getParameter("address");
         String note = req.getParameter("note");
 
-        HttpSession session = req.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart != null && cart.getTotalMoney() > 0) {
-
-            // 2. Tạo ID ngẫu nhiên cho đơn hàng
             String orderId = "ORD-" + System.currentTimeMillis();
-
-            // 3. Tạo đối tượng Order
             List<CartItem> orderDetails = new ArrayList<>(cart.getItems().values());
-
             Order newOrder = new Order(orderId, name, phone, address, note, cart.getTotalMoney(), orderDetails);
-            // 4. Chuyển sản phẩm đã thanh toán về trang đơn hàng
-            req.setAttribute("order", newOrder);
-            session.removeAttribute("cart");
-            req.getRequestDispatcher("/WEB-INF/views/product/order-success.jsp").forward(req, resp);
 
-            // 5. Lưu vào Database
+            // Lưu đơn hàng vào Database
             OrderDAO dao = new OrderDAO();
             dao.saveOrder(newOrder);
 
-            // 6. Check đơn hàng tại console
-            System.out.println("=== ĐƠN HÀNG MỚI ===");
-            System.out.println("Mã đơn: " + newOrder.getId());
-            System.out.println("Khách: " + newOrder.getFullName());
-            System.out.println("Tổng tiền: " + newOrder.getTotalMoney());
-            System.out.println("Số lượng đơn trong hệ thống: " + dao.getAllOrders().size());
-            System.out.println("====================");
-
-            // 7. Xóa giỏ hàng và thông báo
+            // Xóa giỏ và thông báo
             session.removeAttribute("cart");
-            session.setAttribute("message", "Đặt hàng thành công! Mã đơn: " + orderId);
+            session.setAttribute("message", "Đặt hàng thành công! Mã đơn của bạn là: " + orderId);
+
+            req.setAttribute("order", newOrder);
+            req.getRequestDispatcher("/WEB-INF/views/product/order-success.jsp").forward(req, resp);
         } else {
-            resp.sendRedirect("cart");
+            resp.sendRedirect(req.getContextPath() + "/cart");
         }
     }
 }
