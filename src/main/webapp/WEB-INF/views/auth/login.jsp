@@ -57,7 +57,7 @@
                                 <%-- SỬA: name="username" thành name="email" để Servlet nhận được dữ liệu --%>
                                 <input type="email" name="email" class="form-control form-control-lg border-2 shadow-sm"
                                        style="border-radius: 10px; font-size: 15px;"
-                                       placeholder="email@example.com" value="${oldEmail}" required>
+                                       placeholder="" value="${oldEmail}" required>
                             </div>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
@@ -65,7 +65,7 @@
                                     <a href="${pageContext.request.contextPath}/forgot-password" class="small text-danger text-decoration-none fw-bold"> Quên Mật Khẩu?</a>
                                 </div>
                                 <input type="password" name="password" class="form-control form-control-lg border-2 shadow-sm"
-                                       style="border-radius: 10px; font-size: 15px;" placeholder="••••••••" required>
+                                       style="border-radius: 10px; font-size: 15px;" placeholder="" required>
                             </div>
 
 

@@ -39,22 +39,22 @@
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-uppercase">Họ và tên</label>
                             <input type="text" name="fullname" class="form-control"
-                                   placeholder="Ví dụ: Nguyễn Văn A" value="${oldFullname}" required>
+                                   placeholder="" value="${oldFullname}" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-uppercase">Địa chỉ Email</label>
                             <input type="email" name="email" class="form-control"
-                                   placeholder="name@example.com" value="${oldEmail}" required>
+                                   placeholder="" value="${oldEmail}" required>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label small fw-bold text-uppercase">Mật khẩu</label>
-                                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                                <input type="password" name="password" class="form-control" placeholder="" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label small fw-bold text-uppercase">Xác nhận</label>
-                                <input type="password" name="confirmPassword" class="form-control" placeholder="••••••••" required>
+                                <input type="password" name="confirmPassword" class="form-control" placeholder="" required>
                             </div>
                         </div>
 

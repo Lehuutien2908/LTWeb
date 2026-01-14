@@ -1,86 +1,68 @@
 package vn.edu.hcmuaf.fit.projectltw.dao;
 
+import vn.edu.hcmuaf.fit.projectltw.db.DBContext;
 import vn.edu.hcmuaf.fit.projectltw.model.Product;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
 
+    // Hàm bổ trợ để đọc dữ liệu từ ResultSet
+    private Product mapProduct(ResultSet rs) throws SQLException {
+        return new Product(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getDouble("price"),
+                rs.getString("image"),
+                rs.getString("category"),
+                rs.getBoolean("is_new"),
+                rs.getBoolean("is_hot")
+        );
+    }
 
     public List<Product> getNewProducts() {
         List<Product> list = new ArrayList<>();
-
-        // Sử dụng chính xác 12 ảnh đầu tiên trong danh sách 19 ảnh
-        list.add(new Product(1, "HUAWEI Mate XT Ultimate Design", 89990000, "HUAWEI-Mate-XT-design.jpg", "Huawei", true, true));
-        list.add(new Product(2, "Honor Magic7 RSR Porsche Design", 45000000, "honor magic7 rsr.jpg", "Honor", true, true));
-        list.add(new Product(3, "Xiaomi 17 Ultra Premium", 32990000, "xiaomi 17 ultra.jpg", "Xiaomi", true, true));
-        list.add(new Product(4, "OPPO Find X9 Pro 5G", 26500000, "oppo find x9 pro.jpg", "Oppo", true, false));
-        list.add(new Product(5, "Vivo X200 Ultra 5G", 28900000, "vivo x200 ultra.jpg", "Vivo", true, true));
-        list.add(new Product(6, "Xiaomi 17 Pro Max - Series", 35000000, "Xiaomi-17 pro max -series.jpg", "Xiaomi", true, true));
-        list.add(new Product(7, "OnePlus 13 Snapdragon 8 Elite", 19500000, "oneplus 13.webp", "OnePlus", true, false));
-        list.add(new Product(8, "Vivo X300 Webp Special Edition", 22000000, "vivo X300.webp", "Vivo", true, false));
-        list.add(new Product(9, "Xiaomi 17 Standard Edition", 21500000, "xiaomi 17.jpg", "Xiaomi", true, false));
-        list.add(new Product(10, "OPPO Find X8 Series", 23000000, "oppo find x8 series.jpeg", "Oppo", true, false));
-        list.add(new Product(11, "Vivo X200 Pro Edition", 25500000, "vivo x200.webp", "Vivo", true, false));
-        list.add(new Product(12, "Xiaomi 15 Ultra Part 2", 30500000, "xiaomi 15 ultra part 2.png", "Xiaomi", true, false));
-
+        String sql = "SELECT * FROM products WHERE is_new = 1 LIMIT 12";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapProduct(rs));
+        } catch (Exception e) { e.printStackTrace(); }
         return list;
     }
-
 
     public List<Product> getHotProducts() {
         List<Product> list = new ArrayList<>();
-
-        // 7 Sản phẩm khác biệt từ danh sách 19 ảnh
-        list.add(new Product(13, "OPPO Find X9 Global Launch", 27000000, "OPPO_Find_X9_Series_Global_Launch-header.webp", "Oppo", false, true));
-        list.add(new Product(14, "Xiaomi 14 Ultra Global", 18900000, "xiaomi-14-ultra.jpg", "Xiaomi", false, true));
-        list.add(new Product(15, "OPPO Find X7 Ultra Premium", 16800000, "oppo find x7 ultra.jpg", "Oppo", false, true));
-        list.add(new Product(16, "Xiaomi 15 Pro Series Edition", 14500000, "xiaomi 15 series.png", "Xiaomi", false, true));
-        list.add(new Product(17, "Xiaomi 15 Compact Edition", 13500000, "xiaomi 15.jpg", "Xiaomi", false, true));
-        list.add(new Product(18, "Oppo X7 Ultra Edition", 17200000, "oppo x7 ultra.jpg", "Oppo", false, true));
-        list.add(new Product(19, "Xiaomi 14 Global Featured", 15900000, "Xiaomi-14-global-featured-1420x799.webp", "Xiaomi", false, true));
-
-        // Thêm đúng 5 sản phẩm trùng lặp (ID 1 đến 5) để đủ 12 sản phẩm
-        list.add(new Product(1, "HUAWEI Mate XT Ultimate Design", 89990000, "HUAWEI-Mate-XT-design.jpg", "Huawei", true, true));
-        list.add(new Product(2, "Honor Magic7 RSR Porsche Design", 45000000, "honor magic7 rsr.jpg", "Honor", true, true));
-        list.add(new Product(3, "Xiaomi 17 Ultra Premium", 32990000, "xiaomi 17 ultra.jpg", "Xiaomi", true, true));
-        list.add(new Product(4, "OPPO Find X9 Pro 5G", 26500000, "oppo find x9 pro.jpg", "Oppo", true, false));
-        list.add(new Product(5, "Vivo X200 Ultra 5G", 28900000, "vivo x200 ultra.jpg", "Vivo", true, true));
-
+        String sql = "SELECT * FROM products WHERE is_hot = 1 LIMIT 12";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapProduct(rs));
+        } catch (Exception e) { e.printStackTrace(); }
         return list;
     }
 
-    public List<Product> getAllProducts() {
-        List<Product> all = new ArrayList<>(getNewProducts());
-        for (Product p : getHotProducts()) {
-            if (!all.contains(p)) {
-                all.add(p);
-            }
-        }
-        return all;
+    public Product getProductById(int id) {
+        String sql = "SELECT * FROM products WHERE id = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return mapProduct(rs);
+        } catch (Exception e) { e.printStackTrace(); }
+        return null;
     }
-    public List<Product> getSaleProducts() {
-        List<Product> hot = getHotProducts();
-        // Lấy tối đa 5 sản phẩm từ danh sách Hot để làm hàng giảm giá
-        return hot.subList(0, Math.min(hot.size(), 5));
-    }
-//chi tiét san pham
-public Product getProductById(int id) {
-    return getAllProducts().stream()
-            .filter(p -> p.getId() == id)
-            .findFirst()
-            .orElse(null);
-}
-    // Hàm lọc sản phẩm theo Category (Hãng)
+
     public List<Product> getProductsByCategory(String category) {
         List<Product> list = new ArrayList<>();
-        // Duyệt qua tất cả sản phẩm đang có
-        for (Product p : getAllProducts()) {
-            // So sánh tên hãng
-            if (p.getCategory() != null && p.getCategory().equalsIgnoreCase(category)) {
-                list.add(p);
-            }
-        }
+        String sql = "SELECT * FROM products WHERE category = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, category);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapProduct(rs));
+        } catch (Exception e) { e.printStackTrace(); }
         return list;
     }
 }
