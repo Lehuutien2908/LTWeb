@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.projectltw.controller;
+package vn.edu.hcmuaf.fit.projectltw.controller.cart;
 
 import vn.edu.hcmuaf.fit.projectltw.model.Cart;
 import jakarta.servlet.ServletException;

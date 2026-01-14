@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.projectltw.controller;
+package vn.edu.hcmuaf.fit.projectltw.controller.product;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
