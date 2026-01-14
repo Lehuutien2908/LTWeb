@@ -17,7 +17,6 @@
     <style>
         body { background-color: #f4f4f4; }
         .cart-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px; }
-        /* Nút màu đỏ chuẩn */
         .btn-accent { background-color: #e31e24; color: white; border: none; font-weight: bold; }
         .btn-accent:hover { background-color: #b0181d; color: white; }
     </style>
@@ -74,7 +73,12 @@
                                     <fmt:formatNumber value="${item.totalPrice}" type="currency" currencySymbol="₫"/>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" class="text-secondary"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="${pageContext.request.contextPath}/remove-cart?pid=${item.product.id}"
+                                       class="text-secondary"
+                                       onclick="return confirm('Bạn có chắc muốn xóa không?')">
+
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -85,7 +89,6 @@
 
             <div class="col-lg-4">
                 <div class="bg-white p-4 shadow-sm rounded">
-                    <h5 class="fw-bold border-bottom pb-2 mb-3">Cộng giỏ hàng</h5>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fs-5 fw-bold">Tổng cộng:</span>
                         <span class="fs-4 fw-bold text-danger">

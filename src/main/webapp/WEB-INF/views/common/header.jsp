@@ -1,6 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
+<%
+    String msg = (String) session.getAttribute("message");
+    if (msg != null) {
+%>
+<div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert"
+     style="position: fixed; top: 80px; right: 20px; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-width: 300px;">
+
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <strong>Thành công!</strong> <%= msg %>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<script>
+    setTimeout(function() {
+        var alertElement = document.getElementById('success-alert');
+        if (alertElement) {
+            try {
+                var bsAlert = new bootstrap.Alert(alertElement);
+                bsAlert.close();
+            } catch (e) {
+                alertElement.style.display = 'none';
+            }
+        }
+    }, 3000);
+</script>
+
+<%
+        // Xóa session để không hiện lại khi F5
+        session.removeAttribute("message");
+    }
+%>
+
 <header class="shadow-sm">
     <div class="top-bar py-1 bg-black border-bottom border-secondary">
         <div class="container d-flex justify-content-between align-items-center small text-white-50">

@@ -21,6 +21,16 @@ public class Cart implements Serializable {
             items.put(p.getId(), new CartItem(p, 1));
         }
     }
+    public void add(Product p, int quantity) {
+        if (p == null) return;
+
+        if (items.containsKey(p.getId())) {
+            CartItem item = items.get(p.getId());
+            item.setQuantity(item.getQuantity() + quantity);
+        } else {
+            items.put(p.getId(), new CartItem(p, quantity));
+        }
+    }
 
     // 2. Xóa sản phẩm khỏi giỏ
     public void remove(int id) {
@@ -31,7 +41,7 @@ public class Cart implements Serializable {
     public void update(int id, int quantity) {
         if (items.containsKey(id)) {
             if (quantity <= 0) {
-                items.remove(id); // Nếu chỉnh về 0 thì xóa luôn
+                items.remove(id);
             } else {
                 items.get(id).setQuantity(quantity);
             }
@@ -60,4 +70,5 @@ public class Cart implements Serializable {
     public Map<Integer, CartItem> getItems() {
         return items;
     }
+
 }
