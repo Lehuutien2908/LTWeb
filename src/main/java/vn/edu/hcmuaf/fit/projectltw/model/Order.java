@@ -2,10 +2,9 @@ package vn.edu.hcmuaf.fit.projectltw.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 public class Order {
-    private String id; // Mã đơn hàng (VD: #ORDER-123)
+    private String id;
     private String fullName;
     private String phone;
     private String address;
@@ -13,16 +12,17 @@ public class Order {
     private double totalMoney;
     private Date date;
 
-    private List<CartItem> details;
+    // Đổi tên từ 'details' thành 'items' để khớp với OrderDAO
+    private List<CartItem> items;
 
-    public Order(String id, String fullName, String phone, String address, String note, double totalMoney, List<CartItem> details) {
+    public Order(String id, String fullName, String phone, String address, String note, double totalMoney, List<CartItem> items) {
         this.id = id;
         this.fullName = fullName;
         this.phone = phone;
         this.address = address;
         this.note = note;
         this.totalMoney = totalMoney;
-        this.details = details;
+        this.items = items;
         this.date = new Date();
     }
 
@@ -82,11 +82,11 @@ public class Order {
         this.date = date;
     }
 
-    public List<CartItem> getDetails() {
-        return details;
+    public List<CartItem> getItems() {
+        return items;
     }
 
-    public void setDetails(List<CartItem> details) {
-        this.details = details;
+    public void setItems(List<CartItem> items) {
+        this.items = items;
     }
 }

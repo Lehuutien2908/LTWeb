@@ -16,7 +16,7 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Lấy dữ liệu cho các section chính (12 máy mỗi mục)
+        // 1. Lấy dữ liệu cho các section chính
         List<Product> newProducts = productDAO.getNewProducts();
         List<Product> hotProducts = productDAO.getHotProducts();
 
@@ -26,7 +26,7 @@ public class HomeServlet extends HttpServlet {
         // 3. Đẩy dữ liệu sang JSP
         request.setAttribute("newProducts", newProducts);
         request.setAttribute("hotProducts", hotProducts);
-        request.setAttribute("saleProducts", saleProducts); // Tên biến dùng trong Sidebar JSP
+        request.setAttribute("saleProducts", saleProducts);
 
         // 4. Forward vào thư mục views/product/home.jsp
         request.getRequestDispatcher("/WEB-INF/views/product/home.jsp").forward(request, response);

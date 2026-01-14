@@ -42,7 +42,7 @@
                                 <label class="form-label small fw-bold text-uppercase">Email đăng ký</label>
                                 <input type="email" name="email" class="form-control border-2"
                                        style="border-radius: 10px; padding: 12px;"
-                                       placeholder="example@gmail.com" required>
+                                       placeholder="" required>
                             </div>
                             <button type="submit" class="btn btn-danger w-100 fw-bold py-3 text-uppercase shadow-sm"
                                     style="border-radius: 10px;">
