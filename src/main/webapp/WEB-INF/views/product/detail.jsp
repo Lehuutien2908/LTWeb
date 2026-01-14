@@ -89,7 +89,7 @@
                 </div>
 
                 <form action="cart-add" method="POST">
-                    <input type="hidden" name="productId" value="${product.id}">
+                    <input type="hidden" name="id" value="${product.id}">
 
                     <div class="mb-4 d-flex align-items-center">
                                             <label class="me-3 fw-bold">Số lượng:</label>
@@ -106,9 +106,9 @@
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex mt-4">
-                        <button type="submit" formaction="buy-now" class="btn btn-buy-now btn-lg px-5 fw-bold py-3 text-white text-uppercase">MUA NGAY</button>
-                        <button type="submit" class="btn btn-outline-danger btn-lg px-4 py-3 border-2 shadow-sm">
-                            <i class="bi bi-cart-plus fs-4"></i>
+                        <button type="submit" formaction="${pageContext.request.contextPath}/buy-now" class="btn btn-danger btn-lg">MUA NGAY</button>
+                        <button type="submit" formaction="${pageContext.request.contextPath}/add-to-cart" class="btn btn-outline-danger btn-lg ms-2">
+                            <i class="bi bi-cart-plus"></i>
                         </button>
                     </div>
                 </form>
