@@ -1,36 +1,39 @@
 package vn.edu.hcmuaf.fit.projectltw.service;
 
+import java.util.Properties;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import java.util.Properties;
+import java.io.InputStream;
 
 public class EmailService {
-    public static void sendPasswordEmail(String toEmail, String fullName, String password) {
-        // Cấu hình SMTP của Gmail
+    private static final String PROP_FILE = "email.properties";
+
+    public static void sendPasswordEmail(String to, String name, String newPassword) {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        // Đăng nhập bằng "Mật khẩu ứng dụng" (16 ký tự)
-        final String user = "flagshipglobal.system32@gmail.com";
-        final String pass = "mtqe qgvc lezo oosy";
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, pass);
+        try (InputStream input = EmailService.class.getClassLoader().getResourceAsStream(PROP_FILE)) {
+            if (input == null) {
+                System.out.println("Không tìm thấy file " + PROP_FILE);
+                return;
             }
-        });
+            props.load(input);
 
-        try {
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    // Đọc từ file .properties
+                    return new PasswordAuthentication(props.getProperty("mail.smtp.username"),
+                            props.getProperty("mail.smtp.password"));
+                }
+            });
+
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-            message.setSubject("Mật khẩu truy cập Flagship Global");
-            message.setText("Chào " + fullName + ",\nMật khẩu của bạn là: " + password);
+            message.setFrom(new InternetAddress(props.getProperty("mail.smtp.username")));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("Mật khẩu mới của bạn - ProjectLTW");
+            message.setText("Chào " + name + ",\n\nMật khẩu mới của bạn là: " + newPassword);
+
             Transport.send(message);
-        } catch (MessagingException e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

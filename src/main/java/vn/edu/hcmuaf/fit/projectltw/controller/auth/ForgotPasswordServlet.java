@@ -23,35 +23,23 @@ public class ForgotPasswordServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-
         String email = request.getParameter("email");
 
-        // 1. Kiểm tra email có tồn tại trong database project_ltw không
         if (userDAO.isEmailExists(email)) {
+            // 1. Tạo mật khẩu mới
+            String newPassword = java.util.UUID.randomUUID().toString().substring(0, 8);
 
-            // 2. Tạo mật khẩu mới ngẫu nhiên (6 ký tự chữ và số)
-            String newPassword = generateRandomPassword(6);
-
-            // 3. Cập nhật mật khẩu mới này vào TiDB Cloud
-            boolean isUpdated = userDAO.updatePassword(email, newPassword);
-
-            if (isUpdated) {
-                // 4. Gửi mật khẩu mới qua Email
-                // Đảm bảo hàm trong EmailService của bạn đặt tên là sendPasswordEmail
+            // 2. Cập nhật vào Database Cloud
+            if (userDAO.updatePassword(email, newPassword)) {
+                // 3. Gửi mail bảo mật qua file properties
                 EmailService.sendPasswordEmail(email, "Khách hàng", newPassword);
-
-                request.setAttribute("message", "Mật khẩu mới đã được gửi thành công vào email: " + email);
+                request.setAttribute("message", "Thành công! Kiểm tra email để nhận mật khẩu mới.");
             } else {
-                request.setAttribute("error", "Lỗi hệ thống: Không thể cập nhật mật khẩu lúc này!");
+                request.setAttribute("error", "Lỗi hệ thống khi cập nhật mật khẩu.");
             }
         } else {
-            // Trường hợp không tìm thấy email
-            request.setAttribute("error", "Email này không tồn tại trên hệ thống!");
-            request.setAttribute("oldEmail", email);
+            request.setAttribute("error", "Email không tồn tại trong hệ thống.");
         }
-
         request.getRequestDispatcher("/WEB-INF/views/auth/forgot-password.jsp").forward(request, response);
     }
 
