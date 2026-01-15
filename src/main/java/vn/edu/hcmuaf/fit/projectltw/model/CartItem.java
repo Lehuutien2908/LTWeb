@@ -20,6 +20,10 @@ public class CartItem implements Serializable {
         return product.getPrice() * quantity;
     }
 
+    public double getPrice() {
+        if (product == null) return 0;
+        return product.getPrice();
+    }
     // Getter & Setter
     public Product getProduct() { return product; }
     public void setProduct(Product product) { this.product = product; }

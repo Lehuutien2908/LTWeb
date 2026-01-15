@@ -81,16 +81,16 @@
                                     <td class="text-center">
                                         <c:choose>
                                             <c:when test="${o.status == 0}">
-                                                <span class="badge-status status-pending"><i class="fas fa-times-circle"></i> Chờ duyệt</span>
+                                                <span class="badge-status status-pending"><i class="fas fa-clock"></i> Chờ duyệt</span>
                                             </c:when>
                                             <c:when test="${o.status == 1}">
-                                                <span class="badge-status status-shipping"><i class="fas fa-clock"></i> Đang giao</span>
+                                                <span class="badge-status status-shipping"><i class="fas fa-truck fas"></i> Đang giao</span>
                                             </c:when>
                                             <c:when test="${o.status == 2}">
-                                                <span class="badge-status status-success"><i class="fas fa-truck"></i> Đã giao</span>
+                                                <span class="badge-status status-success"><i class="fa-check-circle"></i> Đã giao</span>
                                             </c:when>
                                             <c:when test="${o.status == 3}">
-                                                <span class="badge-status status-cancel"><i class="fas fa-check-circle"></i> Đã hủy</span>
+                                                <span class="badge-status status-cancel"><i class="fas fa-times-circle"></i> Đã hủy</span>
                                             </c:when>
                                         </c:choose>
                                     </td>

@@ -47,7 +47,7 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover align-middle mb-0">
-                            <thead class="table-dark">
+                            <thead class="table-head-custom">
                             <tr>
                                 <th style="width: 50px;">ID</th>
                                 <th style="width: 70px;">Ảnh</th>

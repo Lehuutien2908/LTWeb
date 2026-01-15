@@ -12,7 +12,7 @@
 
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3 text-white" href="#">Đăng xuất</a>
+            <a class="nav-link px-3 text-white" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
         </div>
     </div>
 </header>

@@ -8,12 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.projectltw.dao.OrderDAO;
 import vn.edu.hcmuaf.fit.projectltw.model.Cart;
-import vn.edu.hcmuaf.fit.projectltw.model.CartItem;
 import vn.edu.hcmuaf.fit.projectltw.model.Order;
+import vn.edu.hcmuaf.fit.projectltw.model.User;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
@@ -22,10 +20,8 @@ public class CheckoutController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        // KIỂM TRA 1: Chặn xem trang checkout nếu chưa đăng nhập
         if (session.getAttribute("user") == null) {
-            req.setAttribute("error", "Bạn vui lòng đăng nhập để tiến hành thanh toán!");
-            req.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
 
@@ -40,39 +36,62 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+        req.setCharacterEncoding("UTF-8");
 
-        // KIỂM TRA 2: Chặn thực thi đơn hàng nếu chưa đăng nhập (Cửa hậu)
-        if (session.getAttribute("user") == null) {
-            req.setAttribute("error", "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
-            req.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
 
-        req.setCharacterEncoding("UTF-8");
-        String name = req.getParameter("fullname");
+        String fullname = req.getParameter("fullname");
         String phone = req.getParameter("phone");
         String address = req.getParameter("address");
-        String note = req.getParameter("note");
 
         Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart != null && cart.getTotalMoney() > 0) {
-            String orderId = "ORD-" + System.currentTimeMillis();
-            List<CartItem> orderDetails = new ArrayList<>(cart.getItems().values());
-            Order newOrder = new Order(orderId, name, phone, address, note, cart.getTotalMoney(), orderDetails);
 
-            // Lưu đơn hàng vào Database
+            Order newOrder = new Order();
+            newOrder.setUserId(user.getId());
+            newOrder.setFullName(fullname);
+            newOrder.setPhone(phone);
+            newOrder.setAddress(address);
+            newOrder.setTotalMoney(cart.getTotalMoney());
+            newOrder.setStatus(0);
+
             OrderDAO dao = new OrderDAO();
-            dao.saveOrder(newOrder);
+            try {
+                String orderId = dao.createOrder(newOrder, cart);
 
-            // Xóa giỏ và thông báo
-            session.removeAttribute("cart");
-            session.setAttribute("message", "Đặt hàng thành công! Mã đơn của bạn là: " + orderId);
+                if (orderId != null) {
 
-            req.setAttribute("order", newOrder);
-            req.getRequestDispatcher("/views/product/order-success.jsp").forward(req, resp);
+                    newOrder.setId(orderId);
+
+                    req.setAttribute("order", newOrder);
+
+                    req.setAttribute("orderItems", cart.getItems().values());
+
+                    session.removeAttribute("cart");
+
+                    req.setAttribute("message", "Đặt hàng thành công!");
+                    req.getRequestDispatcher("/views/product/order-success.jsp").forward(req, resp);
+
+                }
+                // --------------------------------
+
+                else {
+                    req.setAttribute("error", "Có lỗi xảy ra khi lưu đơn hàng.");
+                    req.getRequestDispatcher("/views/product/checkout.jsp").forward(req, resp);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "Lỗi hệ thống: " + e.getMessage());
+                req.getRequestDispatcher("/views/product/checkout.jsp").forward(req, resp);
+            }
+
         } else {
-            resp.sendRedirect(req.getContextPath() + "/cart");
+            resp.sendRedirect(req.getContextPath() + "/home");
         }
     }
 }
