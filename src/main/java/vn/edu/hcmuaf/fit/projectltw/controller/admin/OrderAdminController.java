@@ -16,7 +16,15 @@ public class OrderAdminController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Order> listOrders = orderDAO.getOrders();
+        List<Order> listOrders;
+
+        String keyword = request.getParameter("search");
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            listOrders = orderDAO.searchOrders(keyword.trim());
+        } else {
+            listOrders = orderDAO.getOrders();
+        }
 
         request.setAttribute("listOrders", listOrders);
 

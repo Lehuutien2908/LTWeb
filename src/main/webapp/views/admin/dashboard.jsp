@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<fmt:setLocale value="vi_VN"/>
 <jsp:include page="headerAD.jsp"/>
 <div class="container-fluid">
     <div class="row">
@@ -27,7 +28,8 @@
                         <div class="card-header">Doanh thu</div>
                         <div class="card-body">
                             <h3 class="card-title">
-                                <fmt:formatNumber value="${stats.totalRevenue}" type="currency" currencySymbol="VNĐ"/>
+                                <fmt:formatNumber value="${stats.totalRevenue}" type="number" maxFractionDigits="0"/>
+                                VNĐ
                             </h3>
                             <p class="card-text">Tổng doanh thu tháng này</p>
                         </div>

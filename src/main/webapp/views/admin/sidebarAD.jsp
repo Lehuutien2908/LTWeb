@@ -36,7 +36,8 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link ${param.activePage == 'accountAD' ? 'active' : ''}"
+                   href="${pageContext.request.contextPath}/admin/accountAD">
                     <i class="fas fa-user-cog"></i> Tài khoản Admin
                 </a>
             </li>

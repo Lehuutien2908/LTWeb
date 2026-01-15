@@ -5,36 +5,31 @@ import java.sql.Timestamp;
 
 public class User implements Serializable {
     private int id;
-    private String username;
     private String password;
     private String fullName;
     private String email;
     private String phone;
     private String address;
     private int role; // 0: User, 1: Admin
-    private Timestamp createdAt;
+//    private Timestamp createdAt;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String fullName, String email, String phone, String address, int role, Timestamp createdAt) {
+    public User(int id, String password, String fullName, String email, String phone, String address, int role) {
         this.id = id;
-        this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.role = role;
-        this.createdAt = createdAt;
+//        this.createdAt = createdAt;
     }
 
     // 3. Getters và Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
@@ -54,14 +49,14 @@ public class User implements Serializable {
     public int getRole() { return role; }
     public void setRole(int role) { this.role = role; }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+//    public Timestamp getCreatedAt() { return createdAt; }
+//    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';

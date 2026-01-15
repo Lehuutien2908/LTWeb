@@ -1,0 +1,42 @@
+.profile-card-header {
+    background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+    height: 120px;
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+    background-color: #fff;
+    border: 5px solid #fff;
+    margin-top: -55px;
+    font-size: 45px;
+    color: #0d6efd;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nav-tabs .nav-link {
+    color: #6c757d;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #0d6efd;
+    border-color: transparent;
+    background: none;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd !important;
+    background: none;
+    border-color: transparent;
+    border-bottom: 3px solid #0d6efd;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    border-color: #86b7fe;
+}
