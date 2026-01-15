@@ -11,12 +11,13 @@ public class Product implements Serializable {
     private String category;
     private boolean isNew;
     private boolean isHot;
+    private int stock;
 
     // 1. Constructor không đối số (Bắt buộc cho JavaBeans)
     public Product() {}
 
     // 2. Constructor đầy đủ đối số (Dùng trong ProductDAO)
-    public Product(int id, String name, double price, String image, String category, boolean isNew, boolean isHot) {
+    public Product(int id, String name, double price, String image, String category, boolean isNew, boolean isHot, int stock) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -24,6 +25,7 @@ public class Product implements Serializable {
         this.category = category;
         this.isNew = isNew;
         this.isHot = isHot;
+        this.stock = stock;
     }
 
     // 3. Đầy đủ Getters và Setters
@@ -50,6 +52,9 @@ public class Product implements Serializable {
 
     public boolean isHot() { return isHot; }
     public void setHot(boolean isHot) { this.isHot = isHot; }
+
+    public int getStock() { return stock; }
+    public void setStock(int stock) { this.stock = stock; }
 
     // 4. Override equals và hashCode (Quan trọng để lọc trùng sản phẩm)
     @Override

@@ -17,7 +17,8 @@ public class ProductDAO {
                 rs.getString("image"),
                 rs.getString("category"),
                 rs.getBoolean("is_new"),
-                rs.getBoolean("is_hot"));
+                rs.getBoolean("is_hot"),
+                rs.getInt("stock"));
     }
 
     // Lấy toàn bộ sản phẩm trong Database
@@ -123,7 +124,7 @@ public class ProductDAO {
     }
 
     public int countLowStockProducts() {
-        String sql = "SELECT COUNT(*) FROM products WHERE quantity < 10";
+        String sql = "SELECT COUNT(*) FROM products WHERE stock < 10";
 
         try (Connection conn = DBContext.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -134,5 +135,60 @@ public class ProductDAO {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public boolean insertProduct(Product p) {
+        String sql = "INSERT INTO products (name, price, image, category, is_new, is_hot, stock) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, p.getName());
+            ps.setDouble(2, p.getPrice());
+            ps.setString(3, p.getImage());
+            ps.setString(4, p.getCategory());
+            ps.setBoolean(5, p.isNew());
+            ps.setBoolean(6, p.isHot());
+            ps.setInt(7, p.getStock());
+
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateProduct(Product p) {
+        String sql = "UPDATE products SET name=?, price=?, image=?, category=?, is_new=?, is_hot=?, stock=? WHERE id=?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, p.getName());
+            ps.setDouble(2, p.getPrice());
+            ps.setString(3, p.getImage());
+            ps.setString(4, p.getCategory());
+            ps.setBoolean(5, p.isNew());
+            ps.setBoolean(6, p.isHot());
+            ps.setInt(7, p.getStock());
+            ps.setInt(8, p.getId());
+
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteProduct(int id) {
+        String sql = "DELETE FROM products WHERE id=?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

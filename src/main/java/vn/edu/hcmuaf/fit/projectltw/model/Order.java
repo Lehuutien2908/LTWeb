@@ -1,29 +1,35 @@
 package vn.edu.hcmuaf.fit.projectltw.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
     private String id;
+    private int userId;
     private String fullName;
     private String phone;
     private String address;
-    private String note;
+    private int totalQuantity;
     private double totalMoney;
+    private int status;
     private Date date;
 
-    // Đổi tên từ 'details' thành 'items' để khớp với OrderDAO
-    private List<CartItem> items;
+    private String listProductNames;
 
-    public Order(String id, String fullName, String phone, String address, String note, double totalMoney, List<CartItem> items) {
+    public Order(String id, int userId, String fullName, String phone, String address, int totalQuantity, double totalMoney, int status, Date date) {
         this.id = id;
+        this.userId = userId;
         this.fullName = fullName;
         this.phone = phone;
         this.address = address;
-        this.note = note;
+        this.totalQuantity = totalQuantity;
         this.totalMoney = totalMoney;
-        this.items = items;
+        this.status = status;
         this.date = new Date();
+    }
+
+    public Order(){
     }
 
     public String getId() {
@@ -58,12 +64,12 @@ public class Order {
         this.address = address;
     }
 
-    public String getNote() {
-        return note;
+    public int getTotalQuantity() {
+        return totalQuantity;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public double getTotalMoney() {
@@ -82,11 +88,28 @@ public class Order {
         this.date = date;
     }
 
-    public List<CartItem> getItems() {
-        return items;
+    public int getStatus() {
+        return status;
     }
 
-    public void setItems(List<CartItem> items) {
-        this.items = items;
+    public void setStatus(int status) {
+        this.status = status;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getListProductNames() {
+        return listProductNames;
+    }
+
+    public void setListProductNames(String listProductNames) {
+        this.listProductNames = listProductNames;
+    }
+
 }

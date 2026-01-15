@@ -21,7 +21,7 @@ public class AdminDashboardController extends HttpServlet {
         ProductDAO productDAO = new ProductDAO();
 
         Map<String, Object> stats = new HashMap<>();
-        stats.put("totalRevenue", orderDAO.getTotalRevenue());
+        stats.put("totalRevenue", orderDAO.getRevenueCurrentMonth());
         stats.put("newOrders", orderDAO.countNewOrders());
         stats.put("totalUsers", userDAO.countTotalUsers());
         stats.put("lowStockProducts", productDAO.countLowStockProducts());

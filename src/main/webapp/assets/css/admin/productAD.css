@@ -1,122 +1,58 @@
-body {
-    min-width: 1200px;
-    font-size: 0.92rem;
-    background-color: #f4f6f9;
-    overflow-x: auto; /* Cho phép cuộn ngang */
-}
-
-/* --- Sidebar Styling --- */
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    padding: 48px 0 0;
-    width: 16.666667%; /* Tương đương col-2 của Bootstrap */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    background-color: #f8f9fa;
-}
-
-.sidebar-sticky {
-    height: calc(100vh - 48px);
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.sidebar .nav-link {
-    font-weight: 500;
-    color: #333;
-    padding: 10px 15px;
-    margin: 4px 15px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    transition: all 0.2s;
-}
-
-.sidebar .nav-link i {
-    width: 24px;
-    margin-right: 10px;
-    text-align: center;
-    color: #6c757d;
-}
-
-/* Hiệu ứng Hover */
-.sidebar .nav-link:hover {
-    background-color: #e9ecef;
-    color: #0d6efd; /* Thay thế var(--primary-color) */
-}
-
-.sidebar .nav-link:hover i {
-    color: #0d6efd;
-}
-
-/* Trạng thái Active */
-.sidebar .nav-link.active {
-    background-color: #e7f1ff; /* Thay thế var(--active-link-bg) */
-    color: #0d6efd; /* Thay thế var(--active-link-color) */
-    font-weight: 600;
-}
-
-.sidebar .nav-link.active i {
-    color: #0d6efd;
-}
-
-.sidebar-heading {
-    font-size: .75rem;
-    letter-spacing: 1px;
-}
-
-/* --- Main Content Styling --- */
-/* Đẩy nội dung chính sang phải để tránh Sidebar che mất */
-main {
-    margin-left: 16.666667%; /* Tương đương độ rộng Sidebar */
-    width: 83.333333%; /* Phần còn lại (col-10) */
-}
-
-.card-dashboard {
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-    background-color: #fff;
-}
-
-/* --- Table Styling --- */
 .product-img {
-    width: 55px;
-    height: 55px;
-    object-fit: cover;
-    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
     border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background: #ffffff;
+    padding: 2px;
 }
 
-.table th {
+.action-icon {
+    cursor: pointer;
+    padding: 6px 8px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.action-icon.text-primary:hover {
+    background-color: #e6f0ff;
+    color: #0d6efd;
+}
+
+.action-icon.text-danger:hover {
+    background-color: #ffe6e6;
+    color: #dc3545;
+}
+
+.table thead th {
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    color: #666;
-    border-bottom-width: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
 }
 
-.btn-action {
-    width: 35px;
-    height: 35px;
-    padding: 0;
-    line-height: 33px;
-    border-radius: 50%;
-    margin: 0 2px;
-    transition: transform 0.2s;
+.table tbody td {
+    vertical-align: middle;
+    font-size: 0.95rem;
 }
 
-.btn-action:hover {
-    transform: translateY(-2px);
+.badge {
+    padding: 0.5em 0.7em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
-/* --- Navbar (Top) --- */
-.navbar-brand {
-    background-color: rgba(0, 0, 0, .25);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-    width: 16.666667%; /* Khớp với độ rộng sidebar */
-    margin: 0;
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+.modal-header {
+    border-bottom: 0;
+}
+.modal-footer {
+    border-top: 0;
+    padding-top: 0;
 }
