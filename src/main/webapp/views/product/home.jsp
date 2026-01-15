@@ -53,12 +53,12 @@
     </style>
 </head>
 <body class="bg-light">
-    <jsp:include page="/WEB-INF/views/common/header.jsp" />
+    <jsp:include page="/views/common/header.jsp" />
 
     <main class="container mt-4">
         <div class="row">
             <div class="col-md-3">
-                <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
+                <jsp:include page="/views/common/sidebar.jsp" />
             </div>
 
             <div class="col-md-9">
@@ -121,7 +121,7 @@
         </div>
     </main>
 
-    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+    <jsp:include page="/views/common/footer.jsp" />
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {

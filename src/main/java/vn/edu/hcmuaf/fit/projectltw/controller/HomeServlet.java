@@ -29,7 +29,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("saleProducts", saleProducts);
 
         // 4. Forward vào thư mục views/product/home.jsp
-        request.getRequestDispatcher("/WEB-INF/views/product/home.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/product/home.jsp").forward(request, response);
     }
 
     @Override

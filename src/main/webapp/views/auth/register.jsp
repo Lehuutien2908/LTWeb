@@ -17,7 +17,7 @@
     </style>
 </head>
 <body class="bg-light">
-    <jsp:include page="/WEB-INF/views/common/header.jsp" />
+    <jsp:include page="/views/common/header.jsp" />
 
     <main class="container py-5">
         <div class="row justify-content-center">
@@ -72,6 +72,6 @@
         </div>
     </main>
 
-    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+    <jsp:include page="/views/common/footer.jsp" />
 </body>
 </html>

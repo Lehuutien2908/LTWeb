@@ -77,7 +77,7 @@ public class OrderDAO {
     }
 
     public int countNewOrders() {
-        String sql = "SELECT COUNT(*) FROM orders WHERE status = 0"; // Assuming 0 is new/pending
+        String sql = "SELECT COUNT(*) FROM orders WHERE status = 0";
         try (Connection conn = DBContext.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

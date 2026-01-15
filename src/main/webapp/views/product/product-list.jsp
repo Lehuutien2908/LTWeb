@@ -13,7 +13,13 @@
 
     <style>
         /* Style riêng cho danh mục bên trái */
-        .sidebar-menu { background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+        .sidebar-menu {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
         .sidebar-menu a {
             display: block;
             padding: 12px 20px;
@@ -22,12 +28,17 @@
             transition: 0.3s;
             font-weight: 500;
         }
-        .sidebar-menu a:last-child { border-bottom: none; }
+
+        .sidebar-menu a:last-child {
+            border-bottom: none;
+        }
+
         .sidebar-menu a:hover {
             color: var(--main-red);
             background: #f9f9f9;
             padding-left: 25px;
         }
+
         /* Link đang được chọn sẽ màu đỏ */
         .sidebar-menu a.active {
             color: white;
@@ -42,17 +53,23 @@
             background: #fff;
             border-radius: 8px;
         }
+
         .product-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: var(--main-red);
             transform: translateY(-3px);
         }
-        .card-img-top { padding: 15px; height: 200px; object-fit: contain; }
+
+        .card-img-top {
+            padding: 15px;
+            height: 200px;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
 
-<jsp:include page="../common/header.jsp"></jsp:include>
+<jsp:include page="/views/common/header.jsp"/>
 
 <div class="container py-5">
     <div class="row">
@@ -61,7 +78,8 @@
                 Thương hiệu
             </h5>
             <div class="sidebar-menu mb-4">
-                <a href="products?category=all" class="${empty activeCategory || activeCategory == 'all' ? 'active' : ''}">
+                <a href="products?category=all"
+                   class="${empty activeCategory || activeCategory == 'all' ? 'active' : ''}">
                     <i class="fa-solid fa-border-all me-2"></i> Tất cả
                 </a>
                 <a href="products?category=Huawei" class="${activeCategory == 'Huawei' ? 'active' : ''}">
@@ -93,8 +111,10 @@
                         <div class="card product-card h-100">
                             <a href="detail?id=${p.id}" class="text-decoration-none">
                                 <div class="position-relative">
-                                    <img src="${pageContext.request.contextPath}/assets/images/${p.image}" class="card-img-top" alt="${p.name}">
-                                    <c:if test="${p.isNewMap}"><span class="badge bg-danger position-absolute top-0 start-0 m-2">Mới</span></c:if>
+                                    <img src="${pageContext.request.contextPath}/assets/images/${p.image}"
+                                         class="card-img-top" alt="${p.name}">
+                                    <c:if test="${p.isNewMap}"><span
+                                            class="badge bg-danger position-absolute top-0 start-0 m-2">Mới</span></c:if>
                                 </div>
                                 <div class="card-body text-center">
                                     <h6 class="card-title fw-bold text-dark text-truncate">${p.name}</h6>
@@ -119,7 +139,7 @@
     </div>
 </div>
 
-<jsp:include page="../common/footer.jsp"></jsp:include>
+<jsp:include page="/views/common/footer.jsp"/>
 
 </body>
 </html>

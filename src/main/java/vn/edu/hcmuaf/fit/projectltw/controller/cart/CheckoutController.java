@@ -25,7 +25,7 @@ public class CheckoutController extends HttpServlet {
         // KIỂM TRA 1: Chặn xem trang checkout nếu chưa đăng nhập
         if (session.getAttribute("user") == null) {
             req.setAttribute("error", "Bạn vui lòng đăng nhập để tiến hành thanh toán!");
-            req.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
             return;
         }
 
@@ -34,7 +34,7 @@ public class CheckoutController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/home");
             return;
         }
-        req.getRequestDispatcher("/WEB-INF/views/product/checkout.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/product/checkout.jsp").forward(req, resp);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CheckoutController extends HttpServlet {
         // KIỂM TRA 2: Chặn thực thi đơn hàng nếu chưa đăng nhập (Cửa hậu)
         if (session.getAttribute("user") == null) {
             req.setAttribute("error", "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
-            req.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
             return;
         }
 
@@ -70,7 +70,7 @@ public class CheckoutController extends HttpServlet {
             session.setAttribute("message", "Đặt hàng thành công! Mã đơn của bạn là: " + orderId);
 
             req.setAttribute("order", newOrder);
-            req.getRequestDispatcher("/WEB-INF/views/product/order-success.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/product/order-success.jsp").forward(req, resp);
         } else {
             resp.sendRedirect(req.getContextPath() + "/cart");
         }

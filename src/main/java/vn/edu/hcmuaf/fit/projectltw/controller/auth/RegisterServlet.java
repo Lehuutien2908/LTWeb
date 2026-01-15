@@ -13,7 +13,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/auth/register.jsp").forward(request, response);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login?registerSuccess=true&checkEmail=true");
         } else {
             request.setAttribute("error", "Hệ thống đang bận, vui lòng đăng ký lại sau!");
-            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/auth/register.jsp").forward(request, response);
         }
     }
 }

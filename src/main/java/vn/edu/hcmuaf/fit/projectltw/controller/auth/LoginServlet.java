@@ -12,7 +12,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             request.setAttribute("oldEmail", email);
             request.setAttribute("error", "Email hoặc mật khẩu không chính xác!");
-            request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
         }
     }
 }

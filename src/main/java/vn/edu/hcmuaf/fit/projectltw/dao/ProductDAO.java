@@ -123,8 +123,8 @@ public class ProductDAO {
     }
 
     public int countLowStockProducts() {
-        String sql = "SELECT COUNT(*) FROM products WHERE quantity < 10"; // Changed 'stock' to 'quantity' based on
-                                                                          // common naming, will verify in model
+        String sql = "SELECT COUNT(*) FROM products WHERE quantity < 10";
+
         try (Connection conn = DBContext.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

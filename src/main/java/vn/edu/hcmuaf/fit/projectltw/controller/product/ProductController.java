@@ -34,6 +34,6 @@ public class ProductController extends HttpServlet {
         req.setAttribute("productList", list);
         req.setAttribute("activeCategory", category);
 
-        req.getRequestDispatcher("/WEB-INF/views/product/product-list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/product/product-list.jsp").forward(req, resp);
     }
 }

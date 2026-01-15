@@ -45,7 +45,7 @@ public class ProductServlet extends HttpServlet {
                 request.setAttribute("relatedProducts", related);
 
                 // 4. Chuyển hướng đến View
-                request.getRequestDispatcher("/WEB-INF/views/product/detail.jsp").forward(request, response);
+                request.getRequestDispatcher("/views/product/detail.jsp").forward(request, response);
             } else {
                 // Nếu ID không tồn tại trong data, về trang chủ
                 response.sendRedirect("home");

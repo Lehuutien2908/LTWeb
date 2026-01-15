@@ -11,7 +11,6 @@ import java.io.IOException;
 public class ShowCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Sửa đường dẫn thành dòng này:
-        req.getRequestDispatcher("/WEB-INF/views/product/cart.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/product/cart.jsp").forward(req, resp);
     }
 }

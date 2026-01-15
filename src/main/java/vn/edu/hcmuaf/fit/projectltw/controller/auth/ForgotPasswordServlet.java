@@ -18,7 +18,7 @@ public class ForgotPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Chuyển hướng người dùng đến trang nhập email
-        request.getRequestDispatcher("/WEB-INF/views/auth/forgot-password.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/auth/forgot-password.jsp").forward(request, response);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         } else {
             request.setAttribute("error", "Email không tồn tại trong hệ thống.");
         }
-        request.getRequestDispatcher("/WEB-INF/views/auth/forgot-password.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/auth/forgot-password.jsp").forward(request, response);
     }
 
     // Hàm phụ trợ tạo mật khẩu ngẫu nhiên
