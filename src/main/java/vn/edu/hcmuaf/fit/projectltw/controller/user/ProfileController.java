@@ -32,7 +32,6 @@ public class ProfileController extends HttpServlet {
         // SỬA: Dùng đúng tên hàm findById trong UserDAO
         User currentUser = userDAO.findById(sessionUser.getId());
 
-        // Fallback nếu lỗi DB
         if (currentUser == null) {
             currentUser = sessionUser;
         } else {
@@ -79,7 +78,7 @@ public class ProfileController extends HttpServlet {
             return;
         }
 
-        // Load lại trang profile để hiển thị thông báo và dữ liệu mới
+
         doGet(request, response);
     }
 }
