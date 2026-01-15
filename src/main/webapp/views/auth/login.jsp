@@ -7,22 +7,8 @@
     <title>Đăng nhập - Flagship Global</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-
-    <style>
-        /* CSS cho vạch kẻ ngăn cách */
-        .divider:after, .divider:before { content: ""; flex: 1; height: 1px; background: #eee; }
-
-        /* CSS các nút mạng xã hội bo tròn 10px */
-        .btn-social {
-            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
-            border-radius: 10px; border: 1px solid #ddd; background: #fff; transition: 0.3s; font-size: 22px;
-        }
-        .btn-social:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .btn-google:hover { color: #DB4437; border-color: #DB4437; }
-        .btn-facebook:hover { color: #4267B2; border-color: #4267B2; }
-        .btn-apple:hover { color: #000; border-color: #000; }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth/auth.css">
 </head>
 <body class="bg-light">
     <jsp:include page="/views/common/header.jsp" />
@@ -37,14 +23,12 @@
                             <p class="text-muted small">Chào mừng bạn quay trở lại với Flagship Global</p>
                         </div>
 
-                        <%-- Để hiển thị thông báo lỗi khi đăng nhập sai --%>
                         <c:if test="${not empty error}">
                             <div class="alert alert-danger small py-2 text-center" style="border-radius: 10px;">
                                 <i class="bi bi-exclamation-circle me-1"></i> ${error}
                             </div>
                         </c:if>
 
-                        <%-- Để hiển thị thông báo thành công sau khi đăng ký thành công --%>
                         <c:if test="${param.success eq 'true'}">
                             <div class="alert alert-success small py-2 text-center" style="border-radius: 10px;">
                                 <i class="bi bi-check-circle me-1"></i> Đăng ký thành công! Mời bạn đăng nhập.
@@ -54,7 +38,6 @@
                         <form action="${pageContext.request.contextPath}/login" method="POST">
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-uppercase">Địa chỉ Email</label>
-                                <%-- SỬA: name="username" thành name="email" để Servlet nhận được dữ liệu --%>
                                 <input type="email" name="email" class="form-control form-control-lg border-2 shadow-sm"
                                        style="border-radius: 10px; font-size: 15px;"
                                        placeholder="" value="${oldEmail}" required>
@@ -68,11 +51,8 @@
                                        style="border-radius: 10px; font-size: 15px;" placeholder="" required>
                             </div>
 
-
                             <button type="submit" class="btn btn-danger w-100 fw-bold py-3 text-uppercase shadow-sm mb-3"
                                     style="border-radius: 10px;">Đăng nhập ngay</button>
-
-
                         </form>
 
                         <div class="text-center mt-4 pt-2">

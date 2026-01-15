@@ -18,9 +18,10 @@ public class AddToCartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            // Lấy ID và Số lượng từ Form
+            // 1. Lấy tham số từ form
             String idStr = req.getParameter("id");
             String quantityStr = req.getParameter("quantity");
+            String action = req.getParameter("action");
 
             if (idStr == null || quantityStr == null) {
                 resp.sendRedirect(req.getContextPath() + "/home");
@@ -30,7 +31,6 @@ public class AddToCartController extends HttpServlet {
             int id = Integer.parseInt(idStr);
             int quantity = Integer.parseInt(quantityStr);
 
-            // Gọi DAO
             ProductDAO dao = new ProductDAO();
             Product product = dao.getProductById(id);
 
@@ -40,20 +40,27 @@ public class AddToCartController extends HttpServlet {
                 if (cart == null) {
                     cart = new Cart();
                 }
-                cart.add(product, quantity);
+                if ("update".equals(action)) {
+                    cart.update(id, quantity);
+                } else {
+                    cart.add(product, quantity);
+                }
 
                 session.setAttribute("cart", cart);
-                session.setAttribute("message", "Đã thêm sản phẩm vào giỏ hàng thành công!");
+
+                if (!"update".equals(action)) {
+                    session.setAttribute("message", "Đã thêm sản phẩm vào giỏ hàng thành công!");
+                }
             }
 
-            // --- XỬ LÝ CHUYỂN HƯỚNG DỰA TRÊN URL ---
-            String path = req.getServletPath(); // Lấy đường dẫn hiện tại (/buy-now hoặc /add-to-cart)
+            String path = req.getServletPath();
 
-            if (path.equals("/buy-now")) {
-                // Nếu là Mua ngay
-                resp.sendRedirect(req.getContextPath() + "/cart");
+
+            if (path.equals("/buy-now") || "update".equals(action)) {
+
+                resp.sendRedirect(req.getContextPath() + "/views/product/cart.jsp");
             } else {
-                // Nếu là Thêm vào giỏ
+
                 String referer = req.getHeader("referer");
                 resp.sendRedirect(referer);
             }

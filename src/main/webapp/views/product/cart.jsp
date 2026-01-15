@@ -67,7 +67,19 @@
                                 </td>
                                 <td class="text-center"><fmt:formatNumber value="${item.product.price}" type="currency" currencySymbol="₫"/></td>
                                 <td class="text-center">
-                                    <input type="number" value="${item.quantity}" min="1" class="form-control text-center d-inline-block" style="width: 60px;">
+                                    <form action="${pageContext.request.contextPath}/add-to-cart" method="post">
+
+                                        <input type="hidden" name="id" value="${item.product.id}">
+
+                                        <input type="hidden" name="action" value="update">
+
+                                        <input type="number" name="quantity"
+                                               value="${item.quantity}" min="1"
+                                               class="form-control text-center d-inline-block"
+                                               style="width: 60px;"
+                                               onchange="this.form.submit()">
+
+                                    </form>
                                 </td>
                                 <td class="text-end fw-bold text-danger">
                                     <fmt:formatNumber value="${item.totalPrice}" type="currency" currencySymbol="₫"/>
