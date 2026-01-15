@@ -309,4 +309,47 @@ public class OrderDAO {
         }
         return list;
     }
+
+    public List<Order> getOrdersByUserId(int userId) {
+        List<Order> list = new ArrayList<>();
+
+        // Câu lệnh SQL lấy đơn hàng của user đó, sắp xếp đơn mới nhất lên đầu
+        // BẠN HÃY KIỂM TRA LẠI TÊN CỘT TRONG DATABASE CHO KHỚP NHÉ
+        String sql = "SELECT id, fullname, phone, address, booking_date, status, total_money FROM orders WHERE user_id = ? ORDER BY id DESC";
+
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Order order = new Order();
+                    order.setId(rs.getString("id"));
+
+                    // Tên người nhận hàng (lưu trong bảng orders)
+                    order.setFullName(rs.getString("fullname"));
+
+                    order.setPhone(rs.getString("phone"));
+                    order.setAddress(rs.getString("address"));
+
+                    // Lưu ý: booking_date trong DB là Date hay Timestamp thì dùng getTimestamp hoặc getDate
+                    order.setDate(rs.getDate("booking_date"));
+
+                    order.setStatus(rs.getInt("status"));
+                    order.setTotalMoney(rs.getDouble("total_money"));
+
+                    // --- Xử lý tính tổng số lượng sản phẩm (Nếu trong DB bảng orders không có cột quantity) ---
+                    // Nếu bạn muốn hiển thị tổng số lượng sản phẩm trong đơn, bạn có thể gọi thêm 1 hàm phụ ở đây
+                    // Ví dụ: int qty = getTotalQuantityByOrderId(order.getId());
+                    // order.setTotalQuantity(qty);
+
+                    list.add(order);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

@@ -35,13 +35,13 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if (!password.equals(confirmPassword)) {
-            request.setAttribute("error", "Mật khẩu xác nhận không khớp!");
+            request.setAttribute("error", "Mật khẩu xác nhận không khớp !");
             request.getRequestDispatcher("/views/auth/register.jsp").forward(request, response);
             return;
         }
 
         if (userDAO.isEmailExists(email)) {
-            request.setAttribute("error", "Email này đã được sử dụng!");
+            request.setAttribute("error", "Email này đã được sử dụng !");
             request.getRequestDispatcher("/views/auth/register.jsp").forward(request, response);
             return;
         }
