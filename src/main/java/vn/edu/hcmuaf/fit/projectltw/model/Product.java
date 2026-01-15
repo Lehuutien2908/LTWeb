@@ -41,7 +41,6 @@ public class Product implements Serializable {
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
 
-    // Phần này thiếu khiến JSP bị lỗi 500
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
@@ -70,7 +69,6 @@ public class Product implements Serializable {
         return Objects.hash(id);
     }
 
-    // 5. toString để dễ dàng debug/in ra console
     @Override
     public String toString() {
         return "Product{" + "id=" + id + ", name='" + name + '\'' + ", price=" + price + '}';

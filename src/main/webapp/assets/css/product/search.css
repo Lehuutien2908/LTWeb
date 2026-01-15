@@ -1,0 +1,88 @@
+
+:root {
+    --main-red: #dc3545;
+}
+
+.sidebar-menu {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    transition: 0.3s;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sidebar-menu a:hover {
+    color: var(--main-red);
+    background: #f9f9f9;
+    padding-left: 25px;
+}
+
+.product-card {
+    border: 1px solid #eee;
+    transition: 0.3s;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.product-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--main-red);
+    transform: translateY(-3px);
+}
+
+.card-img-top {
+    padding: 15px;
+    height: 200px;
+    object-fit: contain;
+}
+
+
+.search-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.cart-box {
+    color: #007bff;
+    transition: 0.3s;
+}
+
+.cart-box:hover {
+    color: #dc3545;
+}
+
+.auth-link:hover, .hover-red:hover {
+    color: #dc3545 !important;
+}
+
+/* CSS cho Header */
+.header-main .btn-danger {
+    background-color: #dc3545 !important;
+    transition: all 0.3s ease;
+}
+
+.header-main .btn-danger:hover {
+    background-color: #bb2d3b !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.header-main input.form-control:focus {
+    box-shadow: none;
+    border-color: #dc3545;
+}
+
+.header-main a.text-white:hover {
+    color: #dc3545 !important;
+    transition: 0.2s;
+}

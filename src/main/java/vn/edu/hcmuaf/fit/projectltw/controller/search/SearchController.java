@@ -14,12 +14,18 @@ public class SearchController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = request.getParameter("query");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+
+        String query = request.getParameter("query"); // Lấy từ khóa từ Header
 
         List<Product> list = productDAO.searchProducts(query != null ? query.trim() : "");
 
-        request.setAttribute("listP", list);
+        request.setAttribute("productList", list);
+        request.setAttribute("currentCategory", "Kết quả tìm kiếm: " + query);
         request.setAttribute("txtSearch", query);
+
         request.getRequestDispatcher("/views/product/search-results.jsp").forward(request, response);
     }
 }
