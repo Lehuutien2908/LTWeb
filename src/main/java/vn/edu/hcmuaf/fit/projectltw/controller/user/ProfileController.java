@@ -4,9 +4,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import vn.edu.hcmuaf.fit.projectltw.model.User;
-import vn.edu.hcmuaf.fit.projectltw.model.Order; // Import model Order
-import vn.edu.hcmuaf.fit.projectltw.dao.UserDAO; // Import UserDAO
-import vn.edu.hcmuaf.fit.projectltw.dao.OrderDAO; // Import OrderDAO
+import vn.edu.hcmuaf.fit.projectltw.model.Order;
+import vn.edu.hcmuaf.fit.projectltw.dao.UserDAO;
+import vn.edu.hcmuaf.fit.projectltw.dao.OrderDAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,6 @@ import java.util.List;
 @WebServlet(name = "ProfileController", value = "/profile")
 public class ProfileController extends HttpServlet {
 
-    // Khởi tạo các DAO
     private final UserDAO userDAO = new UserDAO();
     private final OrderDAO orderDAO = new OrderDAO();
 
@@ -29,50 +28,58 @@ public class ProfileController extends HttpServlet {
             return;
         }
 
-        // 2. Lấy thông tin User mới nhất từ DB (để đảm bảo Số điện thoại là mới nhất)
-        // Giả sử UserDAO có hàm getUserById
-        User currentUser = userDAO.getUserById(sessionUser.getId());
+        // 2. Lấy thông tin User mới nhất từ DB
+        // SỬA: Dùng đúng tên hàm findById trong UserDAO
+        User currentUser = userDAO.findById(sessionUser.getId());
 
-        // Cập nhật lại user vào session nếu cần thiết (để đồng bộ)
-        if (currentUser != null) {
-            session.setAttribute("user", currentUser);
+        // Fallback nếu lỗi DB
+        if (currentUser == null) {
+            currentUser = sessionUser;
         } else {
-            currentUser = sessionUser; // Fallback nếu lỗi DB
+            // Cập nhật lại session để đồng bộ dữ liệu mới nhất
+            session.setAttribute("user", currentUser);
         }
 
-        // 3. Lấy Lịch sử mua hàng từ DB
+        // 3. Lấy Lịch sử mua hàng
         List<Order> purchaseHistory = orderDAO.getOrdersByUserId(currentUser.getId());
 
-        // 4. Đẩy dữ liệu sang file JSP
-        request.setAttribute("purchaseHistory", purchaseHistory);
-        // User đã có trong session, nhưng có thể set lại attribute nếu muốn rõ ràng
-        request.setAttribute("userInfo", currentUser);
+        // 4. Đẩy dữ liệu sang JSP
+        request.setAttribute("orderHistory", purchaseHistory);
+
+        request.setAttribute("user", currentUser);
 
         request.getRequestDispatcher("/views/user/profile.jsp").forward(request, response);
     }
 
-    // --- BỔ SUNG: Nếu bạn muốn chức năng CẬP NHẬT số điện thoại (Lưu vào DB) ---
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
             String newPhone = request.getParameter("phone");
+            String newAddress = request.getParameter("address");
 
-            // Gọi DAO để update số điện thoại
-            boolean isUpdated = userDAO.updatePhone(user.getId(), newPhone);
+            // SỬA: Gọi hàm updateProfile (nhận 3 tham số) thay vì updatePhone
+            boolean isUpdated = userDAO.updateProfile(user.getId(), newPhone, newAddress);
 
             if (isUpdated) {
-                // Cập nhật lại session
                 user.setPhone(newPhone);
+                user.setAddress(newAddress);
                 session.setAttribute("user", user);
-                request.setAttribute("message", "Cập nhật thành công!");
+
+                request.setAttribute("message", "Cập nhật thông tin thành công!");
             } else {
-                request.setAttribute("error", "Cập nhật thất bại!");
+                request.setAttribute("error", "Cập nhật thất bại! Vui lòng thử lại.");
             }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
-        // Load lại trang profile để hiển thị
+
+        // Load lại trang profile để hiển thị thông báo và dữ liệu mới
         doGet(request, response);
     }
 }
