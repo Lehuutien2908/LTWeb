@@ -19,7 +19,6 @@ public class ProductDetailController extends HttpServlet {
             Product p = productDAO.getProductById(id);
 
             if (p != null) {
-                // Đặt là "product" để khớp với ${product.name} trong file bạn đã gửi
                 request.setAttribute("product", p);
                 request.getRequestDispatcher("/views/product/product-detail.jsp").forward(request, response);
             } else {

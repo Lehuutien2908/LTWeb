@@ -14,11 +14,9 @@ public class User implements Serializable {
     private int role; // 0: User, 1: Admin
     private Timestamp createdAt;
 
-    // 1. Constructor không đối số (Bắt buộc cho JavaBean)
     public User() {
     }
 
-    // 2. Constructor đầy đủ đối số
     public User(int id, String username, String password, String fullName, String email, String phone, String address, int role, Timestamp createdAt) {
         this.id = id;
         this.username = username;
@@ -59,7 +57,6 @@ public class User implements Serializable {
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 
-    // 4. toString để hỗ trợ Debug
     @Override
     public String toString() {
         return "User{" +

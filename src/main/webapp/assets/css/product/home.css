@@ -1,4 +1,4 @@
-/* CSS cho Slider và Card sản phẩm */
+
 .product-img {
     height: 180px;
     object-fit: contain;
@@ -41,7 +41,7 @@
     color: white;
 }
 
-/* Slider 2 hàng chuyên nghiệp */
+
 .slider-viewport {
     overflow: hidden;
     width: 100%;
@@ -64,7 +64,7 @@
     padding: 0 8px;
 }
 
-/* Responsive cho Slider */
+
 @media (max-width: 992px) {
     .slider-wrapper { grid-auto-columns: 50%; }
 }
