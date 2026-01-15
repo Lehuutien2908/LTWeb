@@ -29,29 +29,43 @@
                     </c:if>
 
                     <form action="${pageContext.request.contextPath}/register" method="POST">
+
+
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-uppercase">Họ và tên</label>
                             <input type="text" name="fullname" class="form-control"
-                                   placeholder="Nhập họ tên của bạn" value="${oldFullname}" required>
+                                   placeholder="" value="${oldFullname}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-uppercase">Địa chỉ Email</label>
+                            <input type="email" name="email" class="form-control"
+                                   placeholder="" value="${oldEmail}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-uppercase">Mật khẩu</label>
+                            <input type="password" name="password" class="form-control"
+                                   placeholder="" required>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label small fw-bold text-uppercase">Địa chỉ Email</label>
-                            <input type="email" name="email" class="form-control"
-                                   placeholder="name@example.com" value="${oldEmail}" required>
+                            <label class="form-label small fw-bold text-uppercase">Xác nhận mật khẩu</label>
+                            <input type="password" name="confirmPassword" class="form-control"
+                                   placeholder="" required>
                         </div>
 
                         <div class="info-box p-3 mb-4">
                             <div class="d-flex">
-                                <i class="bi bi-info-circle-fill text-danger me-2"></i>
+                                <i class="bi bi-patch-check-fill text-danger me-2"></i>
                                 <p class="small mb-0 text-muted">
-                                    <strong>Lưu ý:</strong> Hệ thống sẽ tự động tạo mật khẩu 8 số và gửi trực tiếp về email của bạn ngay sau khi nhấn đăng ký thành công.
+                                    <strong>Thông báo:</strong> Sau khi đăng ký thành công, hệ thống sẽ gửi một email xác nhận và cảm ơn đến địa chỉ email của bạn.
                                 </p>
                             </div>
                         </div>
 
                         <button type="submit" class="btn btn-danger btn-auth w-100 text-uppercase shadow-sm">
-                            <i class="bi bi-envelope-plus me-2"></i>Nhận mật khẩu qua Email
+                            <i class="bi bi-person-plus me-2"></i>Đăng ký ngay
                         </button>
                     </form>
 

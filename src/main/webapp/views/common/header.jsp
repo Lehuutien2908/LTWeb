@@ -2,21 +2,17 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <%
-    // Để lấy thông báo thành công từ Session (nếu có)
     String msg = (String) session.getAttribute("message");
     if (msg != null) {
 %>
 <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert"
      style="position: fixed; top: 80px; right: 20px; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-width: 300px;">
-
     <i class="bi bi-check-circle-fill me-2"></i>
     <strong>Thành công!</strong> <%= msg %>
-
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
 <script>
-    // Để tự động đóng thông báo sau 3 giây
     setTimeout(function() {
         var alertElement = document.getElementById('success-alert');
         if (alertElement) {
@@ -29,23 +25,12 @@
         }
     }, 3000);
 </script>
-
 <%
-        // Để xóa thông báo sau khi đã hiển thị, tránh lặp lại khi F5
         session.removeAttribute("message");
     }
 %>
 
 <header class="shadow-sm">
-    <div class="top-bar py-1 bg-black border-bottom border-secondary">
-        <div class="container d-flex justify-content-between align-items-center small text-white-50">
-            <span>Chào mừng bạn đến với <strong>Flagship Global</strong>!</span>
-            <div class="d-flex gap-3">
-                <a href="${pageContext.request.contextPath}/home#footer-section" class="text-decoration-none text-white-50 hover-red">Hỗ trợ</a>
-                <a href="#" class="text-decoration-none text-white-50 hover-red">Bản đồ</a>
-            </div>
-        </div>
-    </div>
 
     <div class="header-main py-3" style="background-color: #1a1a1a;">
         <div class="container">
@@ -68,7 +53,6 @@
                 <div class="col-md-4 d-flex justify-content-end align-items-center">
                     <div class="text-white me-4 auth-wrapper">
                         <c:choose>
-                            <%-- Để kiểm tra xem người dùng đã đăng nhập hay chưa --%>
                             <c:when test="${empty sessionScope.user}">
                                 <a href="${pageContext.request.contextPath}/login" class="text-white text-decoration-none auth-link">Đăng nhập</a>
                                 <span class="mx-1 text-white-50">/</span>
@@ -76,8 +60,7 @@
                             </c:when>
                             <c:otherwise>
                                 <span class="small text-white-50">Xin chào,</span>
-                                <%-- ĐÃ SỬA: Chỉ gọi ${sessionScope.user} vì LoginServlet lưu String họ tên --%>
-                                <a href="${pageContext.request.contextPath}/profile" class="text-white text-decoration-none fw-bold ms-1 hover-red">${sessionScope.user}</a>
+                                <a href="${pageContext.request.contextPath}/profile" class="text-white text-decoration-none fw-bold ms-1 hover-red">${sessionScope.user.fullName}</a>
                                 <a href="${pageContext.request.contextPath}/logout" class="ms-2 text-white-50 small text-decoration-none border-start ps-2">Thoát</a>
                             </c:otherwise>
                         </c:choose>
@@ -96,7 +79,7 @@
 
     <div class="sub-nav-bar bg-white border-bottom mb-0 py-0">
         <div class="container">
-            <ul class="navbar-nav flex-row gap-4 w-100 small fw-bold text-uppercase mb-0">
+            <ul class="navbar-nav flex-row gap-4 w-100 small fw-bold text-uppercase mb-0 align-items-center">
                 <li class="nav-item">
                     <a class="nav-link p-0 text-dark active" href="${pageContext.request.contextPath}/home">Trang chủ</a>
                 </li>
@@ -106,6 +89,13 @@
                 <li class="nav-item">
                     <a class="nav-link p-0 text-dark" href="#footer-section">Liên hệ</a>
                 </li>
+                <c:if test="${not empty sessionScope.user && sessionScope.user.role == 1}">
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link p-0 text-danger fw-bold" href="${pageContext.request.contextPath}/admin/dashboard">
+                            <i class="bi bi-speedometer2 me-1"></i> QUẢN TRỊ ADMIN
+                        </a>
+                    </li>
+                </c:if>
             </ul>
         </div>
     </div>
