@@ -40,10 +40,11 @@ public class Cart implements Serializable {
     // 3. Cập nhật số lượng
     public void update(int id, int quantity) {
         if (items.containsKey(id)) {
-            if (quantity <= 0) {
-                items.remove(id);
+            CartItem item = items.get(id);
+            if (quantity < 1) {
+                item.setQuantity(1);
             } else {
-                items.get(id).setQuantity(quantity);
+                item.setQuantity(quantity);
             }
         }
     }
