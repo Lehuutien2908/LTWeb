@@ -1,0 +1,45 @@
+.specs-table th {
+    width: 35%;
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.product-main-img {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.product-main-img:hover {
+    transform: scale(1.08);
+}
+
+.btn-buy-now {
+    background-color: #dc3545;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-buy-now:hover {
+    background-color: #b02a37;
+    transform: translateY(-2px);
+}
+
+.quantity-input {
+    width: 60px !important;
+    font-weight: bold;
+    border-left: none;
+    border-right: none;
+}
+
+.badge-hot {
+    font-size: 0.7rem;
+    padding: 0.5em 1em;
+}
+
+.related-card {
+    transition: 0.3s;
+}
+
+.related-card:hover {
+    border-color: #dc3545 !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+}

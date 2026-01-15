@@ -1,0 +1,71 @@
+
+.divider:after, .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.btn-social {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    transition: 0.3s;
+    font-size: 22px;
+}
+
+.btn-social:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn-google:hover { color: #DB4437; border-color: #DB4437; }
+.btn-facebook:hover { color: #4267B2; border-color: #4267B2; }
+.btn-apple:hover { color: #000; border-color: #000; }
+
+/* Login & Register */
+.divider:after, .divider:before { content: ""; flex: 1; height: 1px; background: #eee; }
+
+.btn-social {
+    width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
+    border-radius: 10px; border: 1px solid #ddd; background: #fff; transition: 0.3s; font-size: 22px;
+}
+.btn-social:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+/*trang Register */
+.auth-card { border-radius: 15px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+.form-control { border-radius: 10px; border: 2px solid #eee; padding: 10px 15px; font-size: 15px; }
+
+.form-control:focus { border-color: #dc3545; box-shadow: none; }
+
+.btn-auth { border-radius: 10px; padding: 12px; font-weight: bold; transition: 0.3s; }
+
+.info-box { background-color: #f8f9fa; border-left: 4px solid #dc3545; border-radius: 8px; }
+
+/* trang Forgot Password */
+.auth-icon {
+    font-size: 3rem;
+}
+
+.auth-card {
+    border-radius: 10px;
+}
+
+.auth-alert {
+    border-radius: 10px;
+}
+
+.auth-input {
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.auth-btn {
+    border-radius: 10px;
+}
