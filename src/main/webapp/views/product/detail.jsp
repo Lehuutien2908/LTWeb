@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -9,29 +8,13 @@
     <title>${product.name} - Flagship Global</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-    <style>
-        /* Tinh chỉnh riêng cho trang chi tiết */
-        .specs-table th { width: 35%; background-color: #f8f9fa; font-weight: 600; }
-        .product-main-img { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        .product-main-img:hover { transform: scale(1.08); }
-
-        .btn-buy-now { background-color: #dc3545; border: none; transition: 0.3s; }
-        .btn-buy-now:hover { background-color: #b02a37; transform: translateY(-2px); }
-
-        .quantity-input { width: 60px !important; font-weight: bold; border-left: none; border-right: none; }
-        .badge-hot { font-size: 0.7rem; padding: 0.5em 1em; }
-
-        /* Hiệu ứng cho Related Products */
-        .related-card { transition: 0.3s; }
-        .related-card:hover { border-color: #dc3545 !important; box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important; }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/product/product-detail.css">
 </head>
 <body class="bg-light">
     <jsp:include page="/views/common/header.jsp" />
 
     <main class="container py-3">
-        <%-- Thanh điều hướng tối giản: Gần Header hơn nhờ mb-0 trên header --%>
         <div class="bg-white border-bottom mt-0 pt-1 pb-2 mb-4">
             <div class="container d-flex align-items-center">
                 <a href="javascript:history.back()" class="text-dark text-decoration-none d-flex align-items-center py-1">
@@ -92,13 +75,13 @@
                     <input type="hidden" name="id" value="${product.id}">
 
                     <div class="mb-4 d-flex align-items-center">
-                                            <label class="me-3 fw-bold">Số lượng:</label>
-                                            <div class="input-group" style="width: 130px;">
-                                                <button class="btn btn-outline-secondary" type="button" onclick="changeQty(-1)">-</button>
-                                                <input type="number" name="quantity" id="quantity" class="form-control text-center" value="1" min="1">
-                                                <button class="btn btn-outline-secondary" type="button" onclick="changeQty(1)">+</button>
-                                            </div>
-                                        </div>
+                        <label class="me-3 fw-bold">Số lượng:</label>
+                        <div class="input-group" style="width: 130px;">
+                            <button class="btn btn-outline-secondary" type="button" onclick="changeQty(-1)">-</button>
+                            <input type="number" name="quantity" id="quantity" class="form-control text-center" value="1" min="1">
+                            <button class="btn btn-outline-secondary" type="button" onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
 
                     <div class="bg-light p-3 rounded mb-4 border">
                         <div class="small text-dark mb-2"><i class="bi bi-truck text-danger me-2"></i> Miễn phí vận chuyển cho đơn hàng từ 500k</div>
