@@ -4,6 +4,7 @@ import vn.edu.hcmuaf.fit.projectltw.db.DBContext;
 import vn.edu.hcmuaf.fit.projectltw.model.Cart;
 import vn.edu.hcmuaf.fit.projectltw.model.CartItem;
 import vn.edu.hcmuaf.fit.projectltw.model.Order;
+import vn.edu.hcmuaf.fit.projectltw.model.OrderDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -313,9 +314,8 @@ public class OrderDAO {
     public List<Order> getOrdersByUserId(int userId) {
         List<Order> list = new ArrayList<>();
 
-        // Câu lệnh SQL lấy đơn hàng của user đó, sắp xếp đơn mới nhất lên đầu
-        // BẠN HÃY KIỂM TRA LẠI TÊN CỘT TRONG DATABASE CHO KHỚP NHÉ
-        String sql = "SELECT id, fullname, phone, address, booking_date, status, total_money FROM orders WHERE user_id = ? ORDER BY id DESC";
+        String sql = "SELECT order_id, fullname, phone, address, total_money, created_at, status " +
+                "FROM orders WHERE user_id = ? ORDER BY created_at DESC";
 
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -325,27 +325,98 @@ public class OrderDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Order order = new Order();
-                    order.setId(rs.getString("id"));
-
-                    // Tên người nhận hàng (lưu trong bảng orders)
+                    order.setId(rs.getString("order_id"));
                     order.setFullName(rs.getString("fullname"));
-
                     order.setPhone(rs.getString("phone"));
                     order.setAddress(rs.getString("address"));
-
-                    // Lưu ý: booking_date trong DB là Date hay Timestamp thì dùng getTimestamp hoặc getDate
-                    order.setDate(rs.getDate("booking_date"));
-
-                    order.setStatus(rs.getInt("status"));
                     order.setTotalMoney(rs.getDouble("total_money"));
 
-                    // --- Xử lý tính tổng số lượng sản phẩm (Nếu trong DB bảng orders không có cột quantity) ---
-                    // Nếu bạn muốn hiển thị tổng số lượng sản phẩm trong đơn, bạn có thể gọi thêm 1 hàm phụ ở đây
-                    // Ví dụ: int qty = getTotalQuantityByOrderId(order.getId());
-                    // order.setTotalQuantity(qty);
+                    order.setDate(rs.getTimestamp("created_at"));
+                    order.setStatus(rs.getInt("status"));
+
+                    order.setListProductNames(getProductNamesByOrderId(order.getId()));
 
                     list.add(order);
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private String getProductNamesByOrderId(String orderId) {
+        String names = "";
+        String sql = "SELECT p.name, od.quantity " +
+                "FROM order_details od " +
+                "JOIN products p ON od.product_id = p.id " +
+                "WHERE od.order_id = ?";
+
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, orderId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                List<String> tempList = new ArrayList<>();
+                while (rs.next()) {
+                    String productName = rs.getString("name");
+                    int qty = rs.getInt("quantity");
+                    tempList.add(productName + " (x" + qty + ")");
+                }
+                names = String.join(", ", tempList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (names.isEmpty()) {
+            return "Chi tiết xem trong đơn";
+        }
+        return names;
+    }
+
+    public Order getOrderById(String orderId) {
+        String sql = "SELECT order_id, fullname, phone, address, total_money, created_at, status FROM orders WHERE order_id = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getString("order_id"));
+                order.setFullName(rs.getString("fullname"));
+                order.setPhone(rs.getString("phone"));
+                order.setAddress(rs.getString("address"));
+                order.setTotalMoney(rs.getDouble("total_money"));
+                order.setDate(rs.getTimestamp("created_at"));
+                order.setStatus(rs.getInt("status"));
+                return order;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<OrderDetail> getListDetails(String orderId) {
+        List<OrderDetail> list = new ArrayList<>();
+        // Giả sử bảng products có cột 'image'
+        String sql = "SELECT p.name, p.image, od.quantity, od.price " +
+                "FROM order_details od " +
+                "JOIN products p ON od.product_id = p.id " +
+                "WHERE od.order_id = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderDetail detail = new OrderDetail();
+                detail.setProductName(rs.getString("name"));
+                detail.setProductImage(rs.getString("image")); // Nếu null thì xử lý bên JSP
+                detail.setQuantity(rs.getInt("quantity"));
+                detail.setPrice(rs.getDouble("price"));
+                list.add(detail);
             }
         } catch (Exception e) {
             e.printStackTrace();

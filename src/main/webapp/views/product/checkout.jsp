@@ -36,8 +36,8 @@
       font-weight: bold;
     }
     .btn-checkout {
-      background: var(--main-red);
-      color: white;
+      background: #E31E24 !important;
+      color: white !important;
       font-weight: bold;
       text-transform: uppercase;
       padding: 12px;
