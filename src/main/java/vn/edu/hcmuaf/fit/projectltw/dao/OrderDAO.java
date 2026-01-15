@@ -62,4 +62,30 @@ public class OrderDAO {
             }
         }
     }
+
+    public double getTotalRevenue() {
+        String sql = "SELECT SUM(total_money) FROM orders";
+        try (Connection conn = DBContext.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countNewOrders() {
+        String sql = "SELECT COUNT(*) FROM orders WHERE status = 0"; // Assuming 0 is new/pending
+        try (Connection conn = DBContext.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
