@@ -31,15 +31,6 @@
 %>
 
 <header class="shadow-sm">
-    <div class="top-bar py-1 bg-black border-bottom border-secondary">
-        <div class="container d-flex justify-content-between align-items-center small text-white-50">
-            <span>Chào mừng bạn đến với <strong>Flagship Global</strong>!</span>
-            <div class="d-flex gap-3">
-                <a href="${pageContext.request.contextPath}/home#footer-section" class="text-decoration-none text-white-50 hover-red">Hỗ trợ</a>
-                <a href="#" class="text-decoration-none text-white-50 hover-red">Bản đồ</a>
-            </div>
-        </div>
-    </div>
 
     <div class="header-main py-3" style="background-color: #1a1a1a;">
         <div class="container">

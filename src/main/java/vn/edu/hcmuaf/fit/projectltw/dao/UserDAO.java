@@ -7,7 +7,7 @@ import java.sql.*;
 public class UserDAO {
 
     public User checkLogin(String email, String pass) {
-        String sql = "SELECT id, username, fullName, email, role FROM users WHERE email = ? AND password = ?";
+        String sql = "SELECT id, fullname, email, role FROM users WHERE email = ? AND password = ?";
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -16,8 +16,7 @@ public class UserDAO {
             if (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getInt("role"));
                 return user;
@@ -55,16 +54,6 @@ public class UserDAO {
         return false;
     }
 
-    public String generateRandomPassword() {
-        String digits = "0123456789";
-        StringBuilder sb = new StringBuilder();
-        java.util.Random rd = new java.util.Random();
-        for (int i = 0; i < 8; i++) {
-            sb.append(digits.charAt(rd.nextInt(digits.length())));
-        }
-        return sb.toString();
-    }
-
     public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE users SET password = ? WHERE email = ?";
         try (Connection conn = DBContext.getConnection();
@@ -76,17 +65,5 @@ public class UserDAO {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public int countTotalUsers() {
-        String sql = "SELECT COUNT(*) FROM users";
-        try (Connection conn = DBContext.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getInt(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 }
