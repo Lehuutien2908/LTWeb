@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ProductDAO {
 
-    // Hàm bổ trợ để chuyển đổi dữ liệu từ database sang đối tượng Product
     private Product mapProduct(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("id"),
